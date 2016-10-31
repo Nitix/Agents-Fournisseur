@@ -14,9 +14,12 @@
 
 ### Structures :
    - Deux agents :
-	    - Un agent producteur : produit les produits selon le besoin
-		- Un agent magasinier : gère les stocke et vend les produits
+      - Un agent producteur : produit les produits selon le besoin
+      - Un agent magasinier : gère les stocke et vend les produits
 
 Deux instances du couple ci-dessus.
+
+### TODO
+- Deux champs dans la BDD : un pour le nom et l'autre pour la description
 
 La suite sera ajoutée lors du développement...
