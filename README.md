@@ -18,3 +18,5 @@
 		- Un agent magasinier : gère les stocke et vend les produits
 
 Deux instances du couple ci-dessus.
+
+La suite sera ajoutée lors du développement...
