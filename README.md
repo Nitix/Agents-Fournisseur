@@ -1,5 +1,5 @@
-## Projet Agents
-### Fournisseur
+# Projet Agents
+## Fournisseur
 
 ### Développeurs :
 - Alexandre GINGEMBRE
@@ -9,10 +9,10 @@
 
 
 
-#### BDD :
+### BDD :
    - MySQL / MariaDB
 
-#### Structures :
+### Structures :
    - Deux agents :
 	    - Un agent producteur : produit les produits selon le besoin
 		- Un agent magasinier : gère les stocke et vend les produits
