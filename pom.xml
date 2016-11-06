@@ -43,34 +43,19 @@
             <version>2.6.0</version>
         </dependency>
         <dependency>
-            <groupId
-            >org.hibernate</groupId>
-            <artifactId
-            >hibernate-core</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>ejb3-persistence</artifactId>
+            <version>1.0.1.GA</version>
         </dependency>
-
-        <!-- Because this is a web app, we also have a dependency on the servlet api. -->
         <dependency>
-            <groupId
-            >javax.servlet</groupId>
-            <artifactId
-            >servlet-api</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.3.1.GA</version>
         </dependency>
-
-        <!-- Hibernate uses slf4j for logging, for our purposes here use the simple backend -->
         <dependency>
-            <groupId
-            >org.slf4j</groupId>
-            <artifactId
-            >slf4j-simple</artifactId>
-        </dependency>
-
-        <!-- Hibernate gives you a choice of bytecode providers between cglib and javassist -->
-        <dependency>
-            <groupId
-            >javassist</groupId>
-            <artifactId
-            >javassist</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.10</version>
         </dependency>
     </dependencies>
 

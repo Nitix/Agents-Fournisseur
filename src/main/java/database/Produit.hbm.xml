@@ -1,0 +1,14 @@
+<hibernate-mapping package="database">
+
+    <class name="Produit" table="EVENTS">
+        <id name="idProduit" column="idProduit">
+            <generator class="native"/>
+        </id>
+        <property name="nomProduit" column="nomProduit"/>
+        <property name="descriptionProduit" column="descriptionProduit"/>
+        <property name="prixProduit" column="prixProduit"/>
+        <property name="quantiteProduit" column="quantiteProduit"/>
+    </class>
+
+</hibernate-mapping
+>
