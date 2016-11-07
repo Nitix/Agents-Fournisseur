@@ -1,4 +1,4 @@
-package database;
+package fr.miage.agents.fournisseur.model;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;

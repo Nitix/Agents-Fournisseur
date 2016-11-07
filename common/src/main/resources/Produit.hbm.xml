@@ -1,6 +1,6 @@
 <hibernate-mapping package="database">
 
-    <class name="Produit" table="EVENTS">
+    <class name="database.ProduitImpl" table="EVENTS">
         <id name="idProduit" column="idProduit">
             <generator class="native"/>
         </id>
@@ -10,5 +10,4 @@
         <property name="quantiteProduit" column="quantiteProduit"/>
     </class>
 
-</hibernate-mapping
->
+</hibernate-mapping>

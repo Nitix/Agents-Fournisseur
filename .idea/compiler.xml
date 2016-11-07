@@ -22,11 +22,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="Agent Magasinier" />
+        <module name="Agent Producteur" />
         <module name="Agents-Fournisseur" />
+        <module name="API" />
+        <module name="common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Agent Magasinier" target="1.5" />
+      <module name="Agent Producteur" target="1.5" />
       <module name="Agents-Fournisseur" target="1.5" />
+      <module name="API" target="1.5" />
+      <module name="common" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,8 +1,7 @@
-package database;
+package fr.miage.agents.fournisseur.model;
 /**
  * Created by Alexandre on 06/11/2016.
  */
-
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,7 +10,6 @@ import org.hibernate.classic.Session;
 import javax.persistence.*;
 import java.util.Iterator;
 import java.util.List;
-
 @Entity
 @Table(name="Produit")
 public class Produit {

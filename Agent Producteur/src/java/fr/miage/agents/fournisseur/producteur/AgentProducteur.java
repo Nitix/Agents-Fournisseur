@@ -1,9 +1,9 @@
-/**
+package fr.miage.agents.fournisseur.producteur; /**
  * Created by Arthur on 31/10/2016.
  */
 
-import database.Categorie;
-import database.Produit;
+import fr.miage.agents.fournisseur.model.Categorie;
+import fr.miage.agents.fournisseur.model.Produit;
 import jade.core.Agent;
 import org.hibernate.cfg.AnnotationConfiguration;
 
