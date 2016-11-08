@@ -1,8 +1,8 @@
 package fr.miage.agents.fournisseur.model;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 
 import javax.persistence.*;
 import java.util.Set;

@@ -24,7 +24,9 @@
         <processorPath useClasspath="true" />
         <module name="Agent Magasinier" />
         <module name="Agent Producteur" />
-        <module name="Agents-Fournisseur" />
+        <module name="agent-magasinier" />
+        <module name="agent-producteur" />
+        <module name="api" />
         <module name="API" />
         <module name="common" />
       </profile>
@@ -32,9 +34,12 @@
     <bytecodeTargetLevel>
       <module name="Agent Magasinier" target="1.5" />
       <module name="Agent Producteur" target="1.5" />
-      <module name="Agents-Fournisseur" target="1.5" />
+      <module name="agent-magasinier" target="1.8" />
+      <module name="agent-producteur" target="1.8" />
+      <module name="Agents-Fournisseur" target="1.8" />
       <module name="API" target="1.5" />
-      <module name="common" target="1.5" />
+      <module name="api" target="1.8" />
+      <module name="common" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -9,10 +9,9 @@
         <artifactId>core</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <name>API</name>
 
     <groupId>fr.miage.agents.fournisseur</groupId>
-    <artifactId>Agent Magasinier</artifactId>
+    <artifactId>api</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    
 </project>

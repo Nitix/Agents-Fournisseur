@@ -6,7 +6,7 @@
     <dependencies>
         <dependency>
             <groupId>fr.miage.agents.fournisseur</groupId>
-            <artifactId>API</artifactId>
+            <artifactId>api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
@@ -17,9 +17,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>fr.miage.agents.fournisseur</groupId>
     <artifactId>common</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <name>Common</name>
     
 </project>
