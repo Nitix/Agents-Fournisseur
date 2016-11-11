@@ -2,10 +2,12 @@ package fr.miage.agents.fournisseur.model;
 /**
  * Created by Alexandre on 06/11/2016.
  */
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -96,7 +98,7 @@ public class Produit {
 
     /* Method to CREATE a product in the database */
     public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, int categorieID){
-        Session session = factory.openSession();
+        Session session = HibernateUtil.currentSession();
         Transaction tx = null;
         Integer produitID = null;
         try{
@@ -114,14 +116,13 @@ public class Produit {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
         }finally {
-            session.close();
         }
         return produitID;
     }
 
     /* Method to UPDATE price for an product */
     public static void updateProduit(Integer ProductID, float prixProduit ){
-        Session session = factory.openSession();
+        Session session = HibernateUtil.currentSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
@@ -134,20 +135,19 @@ public class Produit {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
         }finally {
-            session.close();
         }
     }
 
 
     /* Method to  READ all the products */
-    public static void listProduits( ){
-        Session session = factory.openSession();
+    public static void listProduits( ) {
+        Session session = HibernateUtil.currentSession();
         Transaction tx = null;
-        try{
+        try {
             tx = session.beginTransaction();
             List produits = session.createQuery("FROM Produit").list();
             for (Iterator iterator =
-                 produits.iterator(); iterator.hasNext();){
+                 produits.iterator(); iterator.hasNext(); ) {
                 Produit produit = (Produit) iterator.next();
                 System.out.print("Nom du Produit : " + produit.getNomProduit());
                 System.out.print("  Description du Produit : " + produit.getDescriptionProduit());
@@ -155,13 +155,23 @@ public class Produit {
                 System.out.println("  Quantité restante du Produit: " + produit.getQuantiteProduit());
             }
             tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
             e.printStackTrace();
-        }finally {
-            session.close();
+        } finally {
         }
     }
+
+        public static void addQuantity(String nom, int quantite)
+    {
+        Query query= HibernateUtil.currentSession().
+                createQuery("from Produit where nomProduit=:name");
+        query.setParameter("name", nom);
+        Produit produit = (Produit) query.uniqueResult();
+        produit.setQuantiteProduit(produit.getQuantiteProduit() + quantite);
+        HibernateUtil.currentSession().save(produit);
+    }
+
 
 
 }

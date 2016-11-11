@@ -51,7 +51,7 @@ public class Categorie {
 
     /* Method to CREATE a category in the database */
     public static Integer addCategorie(String nomCategorie){
-        Session session = Produit.factory.openSession();
+        Session session = HibernateUtil.currentSession();
         Transaction tx = null;
         Integer categorieID = null;
         try{
@@ -64,7 +64,6 @@ public class Categorie {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
         }finally {
-            session.close();
         }
         return categorieID;
     }
