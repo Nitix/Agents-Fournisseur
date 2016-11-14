@@ -1,6 +1,5 @@
 package fr.miage.agents.api.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**

@@ -6,13 +6,10 @@ import fr.miage.agents.api.message.TypeMessage;
 /**
  * Created by nitix on 14/11/16.
  */
-public class Acheter extends Message {
+public class Aide extends Message {
 
-    public String session;
 
-    public boolean accepter;
-
-    public Acheter() {
-        super(TypeMessage.Achat);
+    public Aide(TypeMessage type) {
+        super(type.Aide);
     }
 }
