@@ -1,5 +1,6 @@
 package fr.miage.agents.fournisseur.model;
 
+import fr.miage.agents.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -51,10 +52,10 @@ public class Categorie {
 
     /* Method to CREATE a category in the database */
     public static Integer addCategorie(String nomCategorie){
-        Session session = HibernateUtil.currentSession();
+
         Transaction tx = null;
         Integer categorieID = null;
-        try{
+        try (Session session = HibernateUtil.openSession()){
             tx = session.beginTransaction();
             Categorie categorie = new Categorie();
             categorie.setNomCategorie(nomCategorie);
@@ -63,7 +64,6 @@ public class Categorie {
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
-        }finally {
         }
         return categorieID;
     }
