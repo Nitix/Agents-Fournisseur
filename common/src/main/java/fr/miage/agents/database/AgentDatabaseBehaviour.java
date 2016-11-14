@@ -1,7 +1,6 @@
 package fr.miage.agents.database;
 
 import fr.miage.agents.fournisseur.model.Categorie;
-import fr.miage.agents.fournisseur.model.HibernateUtil;
 import fr.miage.agents.fournisseur.model.Produit;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -44,7 +43,6 @@ public class AgentDatabaseBehaviour extends Behaviour {
 
 
         System.out.println("Le message reçu : " + msg.getContent());
-        HibernateUtil.currentSession().close();
     }
 
     public boolean done() {
