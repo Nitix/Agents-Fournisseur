@@ -29,6 +29,8 @@ public class Produit {
     private float prixProduit;
     @Column(name = "quantiteProduit")
     private int quantiteProduit;
+    @Column(name = "marqueProduit")
+    private String marqueProduit;
 
     @ManyToOne
     @JoinColumn(name="idCategorie")
@@ -37,13 +39,14 @@ public class Produit {
 
     public static SessionFactory factory;
 
-    public Produit(int idProduit, String nomProduit, String descriptionProduit, float prixProduit, int quantiteProduit, Categorie idCategorie) {
+    public Produit(int idProduit, String nomProduit, String descriptionProduit, float prixProduit, int quantiteProduit, Categorie idCategorie, String marqueProduit) {
         this.idProduit = idProduit;
         this.nomProduit = nomProduit;
         this.descriptionProduit = descriptionProduit;
         this.prixProduit = prixProduit;
         this.quantiteProduit = quantiteProduit;
         this.idCategorie = idCategorie;
+        this.marqueProduit = marqueProduit;
     }
 
     public Produit() {
@@ -85,8 +88,16 @@ public class Produit {
         return quantiteProduit;
     }
 
+    public String getMarqueProduit() {
+        return marqueProduit;
+    }
+
     public void setQuantiteProduit(int quantiteProduit) {
         this.quantiteProduit = quantiteProduit;
+    }
+
+    public void setMarqueProduit(String marqueProduit) {
+        this.marqueProduit = marqueProduit;
     }
 
     public Categorie getIdCategorie() {
@@ -98,7 +109,7 @@ public class Produit {
     }
 
     /* Method to CREATE a product in the database */
-    public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, int categorieID){
+    public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, int categorieID, String marqueProduit){
         Transaction tx = null;
         Integer produitID = null;
         try(Session session = HibernateUtil.openSession();){
@@ -108,6 +119,7 @@ public class Produit {
             produit.setDescriptionProduit(descriptionProduit);
             produit.setPrixProduit(prixProduit);
             produit.setQuantiteProduit(quantite);
+            produit.setMarqueProduit(marqueProduit);
             Categorie categorie = (Categorie) session.get(Categorie.class, categorieID);
             produit.setIdCategorie(categorie);
             produitID = (Integer) session.save(produit);
@@ -149,6 +161,7 @@ public class Produit {
                 System.out.print("  Description du Produit : " + produit.getDescriptionProduit());
                 System.out.println("  Prix du Produit: " + produit.getPrixProduit());
                 System.out.println("  Quantité restante du Produit: " + produit.getQuantiteProduit());
+                System.out.println(" Marque du produit :"+ produit.getMarqueProduit());
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -157,11 +170,12 @@ public class Produit {
         }
     }
 
-    public static void addQuantity(String nom, int quantite)
+    public static void addQuantity(String nom, String marque, int quantite)
     {
         Query query= HibernateUtil.openSession().
-                createQuery("from Produit where nomProduit=:name");
+                createQuery("from Produit where nomProduit=:name and marqueProduit=:marque");
         query.setParameter("name", nom);
+        query.setParameter("marque", marque);
         Produit produit = (Produit) query.uniqueResult();
         produit.setQuantiteProduit(produit.getQuantiteProduit() + quantite);
         try(Session session = HibernateUtil.openSession();){

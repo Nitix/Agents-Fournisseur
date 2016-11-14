@@ -13,7 +13,7 @@ public class AgentProducteur extends Agent{
         System.out.println("Bonjour ! Mon nom est "+getLocalName()+" et je suis un producteur !");
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
-        msg.setContent("{'action':'Produire', 'elements': [{'nom':'Tomate', 'quantite':4},{'nom':'Pomme','quantite':1}]}");
+        msg.setContent("{'action':'Produire', 'elements': [{'nom':'Tomate', 'marque':'Bonduel', 'quantite':4},{'nom':'Pomme', 'marque':'Granny', 'quantite':1}]}");
         send(msg);
     }
 

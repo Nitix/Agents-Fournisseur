@@ -27,16 +27,18 @@ public class AgentDatabaseBehaviour extends Behaviour {
         JSONObject obj = new JSONObject(msg.getContent());
         String action = obj.getString("action");
         Integer idCat = Categorie.addCategorie("Légume");
-        Produit.addProduit("Tomate", "J'aime les tomates",1.0f,1 ,idCat );
-        Produit.addProduit("Pomme", "J'aime les pommes",1.0f,1 ,idCat );
+        Produit.addProduit("Tomate", "J'aime les tomates",1.0f,1 ,idCat, "Bonduel");
+        Produit.addProduit("Pomme", "J'aime les pommes",1.0f,1 ,idCat, "Granny");
+        Produit.listProduits();
         switch (action){
             case "Produire":
                 JSONArray arr = obj.getJSONArray("elements");
                 for (int i = 0; i < arr.length(); i++) {
                    JSONObject ligne = arr.getJSONObject(i);
                     String nom = ligne.getString("nom");
+                    String marque = ligne.getString("marque");
                     int quantite = ligne.getInt("quantite");
-                    Produit.addQuantity(nom, quantite);
+                    Produit.addQuantity(nom, marque, quantite);
                 }
         }
 
