@@ -64,11 +64,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.193</version>
         </dependency>
+        <dependency>
+            <groupId></groupId>
+            <artifactId></artifactId>
+        </dependency>
     </dependencies>
 
-    <modules>
-        <module>api</module>
-        <module>common</module>
+    <modules><module>common</module>
         <module>agent-magasinier</module>
         <module>agent-producteur</module>
     </modules>
