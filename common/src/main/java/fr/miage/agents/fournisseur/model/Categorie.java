@@ -49,7 +49,6 @@ public class Categorie {
         this.nomCategorie = nomCategorie;
     }
 
-
     /* Method to CREATE a category in the database */
     public static Integer addCategorie(String nomCategorie){
 
@@ -66,5 +65,19 @@ public class Categorie {
             e.printStackTrace();
         }
         return categorieID;
+    }
+
+    public void updateCategorieId(String nomCategorie, Integer categorieID ){
+        Transaction tx = null;
+        try(Session session = HibernateUtil.openSession()){
+            tx = session.beginTransaction();
+            Categorie categorie = (Categorie) session.get(Categorie.class, nomCategorie);
+            categorie.setIdCategorie(categorieID);
+            session.update(categorie);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }
     }
 }
