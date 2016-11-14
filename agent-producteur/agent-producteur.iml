@@ -34,6 +34,6 @@
     <orderEntry type="library" name="Maven: com.tilab.jade:jade-xml-codec:1.10.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.10" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.193" level="project" />
-    <orderEntry type="library" name="Maven: error:error:unknown" level="project" />
+    <orderEntry type="library" name="Maven: fr.miage.agents:api:unknown" level="project" />
   </component>
 </module>

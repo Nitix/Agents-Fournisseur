@@ -65,12 +65,14 @@
             <version>1.4.193</version>
         </dependency>
         <dependency>
-            <groupId></groupId>
-            <artifactId></artifactId>
+            <groupId>fr.miage.agents</groupId>
+            <artifactId>api</artifactId>
         </dependency>
     </dependencies>
 
-    <modules><module>common</module>
+    <modules>
+        <module>agents-api</module>
+        <module>common</module>
         <module>agent-magasinier</module>
         <module>agent-producteur</module>
     </modules>
