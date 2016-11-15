@@ -47,7 +47,7 @@ public class AgentDatabase extends Agent {
     protected void setup() {
         System.out.println("Bonjour ! Mon nom est "+getLocalName()+" et je suis le taulier de la BDD !");
 
-        //addBehaviour(new AgentDatabaseBehaviour(this));
+        addBehaviour(new AgentDatabaseBehaviour(this));
     }
 
     protected void init(){

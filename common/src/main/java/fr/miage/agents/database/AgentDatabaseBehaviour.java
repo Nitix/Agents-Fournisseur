@@ -32,9 +32,11 @@ public class AgentDatabaseBehaviour extends Behaviour {
         ACLMessage msg = myAgent.blockingReceive(mt);
         try {
             Message m = (Message) msg.getContentObject();
+            System.out.println("type du message envoyé :"+m.type);
             switch (m.type){
                 case Achat:
                     Acheter achat = (Acheter) m;
+                    System.out.println("Vous avez reçu une demande d'achat !");
                     break;
                 case Aide:
                     Aide aide = (Aide) m;
@@ -58,6 +60,7 @@ public class AgentDatabaseBehaviour extends Behaviour {
         } catch (UnreadableException e) {
             e.printStackTrace();
         }
+        /*
 
         JSONObject obj = new JSONObject(msg.getContent());
         String action = obj.getString("action");
@@ -77,9 +80,7 @@ public class AgentDatabaseBehaviour extends Behaviour {
                 }
         }
 
-
-
-        System.out.println("Le message reçu : " + msg.getContent());
+        System.out.println("Le message reçu : " + msg.getContent());*/
     }
 
     public boolean done() {
