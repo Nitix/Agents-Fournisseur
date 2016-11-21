@@ -21,5 +21,6 @@
 
         <mapping class="fr.miage.agents.fournisseur.model.Produit" />
         <mapping class="fr.miage.agents.fournisseur.model.Categorie" />
+        <mapping class="fr.miage.agents.fournisseur.model.CompteActuel" />
     </session-factory>
 </hibernate-configuration>

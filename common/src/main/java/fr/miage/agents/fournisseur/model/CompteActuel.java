@@ -5,14 +5,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Alexandre on 21/11/2016.
  */
+@Entity
+@Table(name="CompteActuel")
 public class CompteActuel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
