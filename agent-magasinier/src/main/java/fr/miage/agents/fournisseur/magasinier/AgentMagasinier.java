@@ -22,4 +22,8 @@ public class AgentMagasinier extends Agent{
         }
         send(msg);
     }
+
+
+
+
 }

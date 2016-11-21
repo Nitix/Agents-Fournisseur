@@ -47,10 +47,7 @@ public class Strategie {
     }
 
     public static boolean assezQuantite(Produit p, int quantite){
-        if(p.getQuantiteProduit()>=quantite){
-            return true;
-        }
-        return false;
+        return p.getQuantiteProduit()>=quantite;
     }
 
     public static boolean accepterRefuserNegociation(float prixPropose, int quantiteDemandee, float prixCalcule){
@@ -72,14 +69,9 @@ public class Strategie {
         }
     }
 
-
+    // La marge doit etre un nombre entre 0 et 1 alors:
     public static boolean calculParRapportMarge(float marge, float prixPropose, float prixCalcule){
-        if((prixCalcule + marge *prixCalcule) < prixPropose){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (prixCalcule + marge *prixCalcule) < prixPropose;
     }
 
 
