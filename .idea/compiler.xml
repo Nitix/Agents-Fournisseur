@@ -26,6 +26,7 @@
         <module name="Agent Producteur" />
         <module name="agent-magasinier" />
         <module name="agent-producteur" />
+        <module name="api" />
         <module name="API" />
         <module name="common" />
       </profile>

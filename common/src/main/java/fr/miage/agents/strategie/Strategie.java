@@ -1,16 +1,8 @@
 package fr.miage.agents.strategie;
 
-import fr.miage.agents.fournisseur.model.Categorie;
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.util.HibernateUtil;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -61,22 +53,35 @@ public class Strategie {
         return false;
     }
 
-    public static boolean accepterRefuserNegociation(){
-        int reussite = (int)Math.random()*100;
-        if(reussite>=20){
-            return false;
+    public static boolean accepterRefuserNegociation(float prixPropose, int quantiteDemandee, float prixCalcule){
+
+        if(quantiteDemandee >= 1000){
+            return calculParRapportMarge(new Float(0.15), prixPropose, prixCalcule);
+        }
+        else if(quantiteDemandee < 1000 && quantiteDemandee >= 500){
+            return calculParRapportMarge(new Float(0.30), prixPropose, prixCalcule);
+        }
+        else if(quantiteDemandee < 500 && quantiteDemandee >= 200){
+            return calculParRapportMarge(new Float(0.40), prixPropose, prixCalcule);
+        }
+        else if(quantiteDemandee < 200 && quantiteDemandee >= 1){
+            return calculParRapportMarge(new Float(0.50), prixPropose, prixCalcule);
         }
         else{
-            return true;
+            return false;
         }
     }
 
-    public static float calculPrixApresNegociation(float prixCalcule){
-        if(accepterRefuserNegociation()){
-            return prixCalcule - ((prixCalcule*20)/100);
+
+    public static boolean calculParRapportMarge(float marge, float prixPropose, float prixCalcule){
+        if((prixCalcule + marge *prixCalcule) < prixPropose){
+            return true;
         }
         else{
-            return prixCalcule;
+            return false;
         }
     }
+
+
+
 }
