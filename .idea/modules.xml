@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Agents-Fournisseur.iml" filepath="$PROJECT_DIR$/Agents-Fournisseur.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-magasinier/agent-magasinier.iml" filepath="$PROJECT_DIR$/agent-magasinier/agent-magasinier.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-producteur/agent-producteur.iml" filepath="$PROJECT_DIR$/agent-producteur/agent-producteur.iml" />
-      <module fileurl="file://$PROJECT_DIR$/agents-api/api.iml" filepath="$PROJECT_DIR$/agents-api/api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/agents-api/api.iml" filepath="$PROJECT_DIR$/agents-api/api.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
     </modules>
   </component>
