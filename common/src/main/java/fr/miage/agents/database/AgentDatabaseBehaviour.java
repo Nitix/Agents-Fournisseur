@@ -6,6 +6,7 @@ import fr.miage.agents.api.message.demande.*;
 import fr.miage.agents.api.message.reponse.ResultatRecherche;
 import fr.miage.agents.fournisseur.model.Categorie;
 import fr.miage.agents.fournisseur.model.Produit;
+import fr.miage.agents.strategie.Strategie;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.event.MessageAdapter;
@@ -36,13 +37,14 @@ public class AgentDatabaseBehaviour extends Behaviour {
             switch (m.type){
                 case Achat:
                     Acheter achat = (Acheter) m;
-                    System.out.println("Vous avez reçu une demande d'achat !");
+                    Message reponse = traitementAchat(achat);
+                    //Send reponse
                     break;
                 case Aide:
                     Aide aide = (Aide) m;
                     break;
                 case DemandeDistance:
-                    DemandeDistane demandeDistane = (DemandeDistane) m;
+                    DemandeDistance demandeDistane = (DemandeDistance) m;
                     break;
                 case NegocierPrix:
                     NegocierPrix negociation = (NegocierPrix) m;
@@ -86,4 +88,15 @@ public class AgentDatabaseBehaviour extends Behaviour {
     public boolean done() {
         return false;
     }
+
+    public Message traitementAchat(Acheter achat){
+        ReponseAchat ra = new ReponseAchat();
+        ra.idSession = achat.idSession;
+        ra.nomProduit = achat.nomProduit;
+        ra.marqueProduit = achat.marqueProduit;
+        ra.prixCalcule = Strategie.venteProduit(achat.nomProduit,achat.marqueProduit,achat.quantiteProduit);
+        ra.quantiteProduit = Strategie.getQuantiteDispoDemande(achat.nomProduit,achat.marqueProduit,achat.quantiteProduit);
+        return new Message(TypeMessage.ReponseAchat);
+    }
+
 }

@@ -75,5 +75,17 @@ public class Strategie {
     }
 
 
+    public static int getQuantiteDispoDemande(String nomProduit, String marqueProduit, int quantiteProduit) {
+        Query query= HibernateUtil.openSession().createQuery("from Produit where nomProduit=:name and marqueProduit=:mrq");
+        query.setParameter("name", nomProduit);
+        query.setParameter("mrq", marqueProduit);
+        Produit p = (Produit) query.uniqueResult();
 
+        if(p.getQuantiteProduit()>=quantiteProduit){
+            return p.getQuantiteProduit();
+        }
+        else{
+            return quantiteProduit;
+        }
+    }
 }
