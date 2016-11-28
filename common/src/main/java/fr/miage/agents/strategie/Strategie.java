@@ -3,6 +3,7 @@ package fr.miage.agents.strategie;
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.util.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 
 /**
@@ -11,9 +12,8 @@ import org.hibernate.Query;
 public class Strategie {
 
     public static float venteProduit(long id, int quantiteDemandee){
-        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.id=:id");
-        query.setParameter("id", id);
-        Produit p = (Produit) query.uniqueResult();
+        Session session = HibernateUtil.openSession();
+        Produit p =  (Produit) session.get(Produit.class, id);
 
         float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
         float prixCalculePourDemande = 0;
@@ -75,9 +75,8 @@ public class Strategie {
 
 
     public static int getQuantiteDispoDemande(long idProduit, int quantiteDemandee) {
-        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.id=:id");
-        query.setParameter("id", idProduit);
-        Produit p = (Produit) query.uniqueResult();
+        Session session = HibernateUtil.openSession();
+        Produit p =  (Produit) session.get(Produit.class, idProduit);
 
         if(p.getQuantiteProduit()>=quantiteDemandee){
             return p.getQuantiteProduit();
