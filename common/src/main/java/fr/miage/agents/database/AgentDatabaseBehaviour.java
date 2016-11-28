@@ -4,6 +4,7 @@ import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.demande.*;
 import fr.miage.agents.api.message.reponse.AppelMethodeIncorrect;
+import fr.miage.agents.api.message.reponse.ReponseAchat;
 import fr.miage.agents.api.message.reponse.ResultatRecherche;
 import fr.miage.agents.strategie.Strategie;
 import jade.core.AID;
@@ -78,11 +79,10 @@ public class AgentDatabaseBehaviour extends Behaviour {
 
     public Message traitementAchat(Acheter achat){
         ReponseAchat ra = new ReponseAchat();
-        ra.idSession = achat.idSession;
-        ra.nomProduit = achat.nomProduit;
-        ra.marqueProduit = achat.marqueProduit;
-        ra.prixCalcule = Strategie.venteProduit(achat.nomProduit,achat.marqueProduit,achat.quantiteProduit);
-        ra.quantiteProduit = Strategie.getQuantiteDispoDemande(achat.nomProduit,achat.marqueProduit,achat.quantiteProduit);
+        ra.session = achat.session;
+        ra.idProduit = achat.idProduit;
+        ra.prixCalcule = Strategie.venteProduit(achat.idProduit,achat.quantiteProduit);
+        ra.quantiteProduit = Strategie.getQuantiteDispoDemande(achat.idProduit,achat.quantiteProduit);
         return new Message(TypeMessage.ReponseAchat);
     }
 
