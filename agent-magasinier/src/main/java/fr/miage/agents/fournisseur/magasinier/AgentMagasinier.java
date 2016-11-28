@@ -15,9 +15,7 @@ public class AgentMagasinier extends Agent{
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
         try {
             Acheter achat = new Acheter();
-            achat.idSession = 1;
-            achat.nomProduit = "pomme";
-            achat.marqueProduit = "Grany";
+            achat.idProduit = 1;
             achat.quantiteProduit = 3;
             msg.setContentObject(achat);
 

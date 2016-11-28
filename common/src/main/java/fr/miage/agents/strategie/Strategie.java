@@ -10,10 +10,9 @@ import org.hibernate.Query;
  */
 public class Strategie {
 
-    public static float venteProduit(String nomProduit, String marqueProduit, int quantiteDemandee){
-        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.nomProduit=:name and p.marqueProduit=:mrq");
-        query.setParameter("name", nomProduit);
-        query.setParameter("mrq", marqueProduit);
+    public static float venteProduit(long id, int quantiteDemandee){
+        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.id=:id");
+        query.setParameter("id", id);
         Produit p = (Produit) query.uniqueResult();
 
         float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
@@ -75,17 +74,16 @@ public class Strategie {
     }
 
 
-    public static int getQuantiteDispoDemande(String nomProduit, String marqueProduit, int quantiteProduit) {
-        Query query= HibernateUtil.openSession().createQuery("from Produit where nomProduit=:name and marqueProduit=:mrq");
-        query.setParameter("name", nomProduit);
-        query.setParameter("mrq", marqueProduit);
+    public static int getQuantiteDispoDemande(long idProduit, int quantiteDemandee) {
+        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.id=:id");
+        query.setParameter("id", idProduit);
         Produit p = (Produit) query.uniqueResult();
 
-        if(p.getQuantiteProduit()>=quantiteProduit){
+        if(p.getQuantiteProduit()>=quantiteDemandee){
             return p.getQuantiteProduit();
         }
         else{
-            return quantiteProduit;
+            return quantiteDemandee;
         }
     }
 }
