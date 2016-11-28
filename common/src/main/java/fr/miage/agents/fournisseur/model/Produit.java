@@ -17,7 +17,9 @@ import java.util.List;
 public class Produit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     @Column(name = "nomProduit")
     private String nomProduit;
     @Column(name = "descriptionProduit")
@@ -96,7 +98,7 @@ public class Produit {
     }
 
     /* Method to CREATE a product in the database */
-    public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, int categorieID, String marqueProduit){
+    public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, long categorieID, String marqueProduit){
         Transaction tx = null;
         Integer produitID = null;
         Session session = HibernateUtil.openSession();
