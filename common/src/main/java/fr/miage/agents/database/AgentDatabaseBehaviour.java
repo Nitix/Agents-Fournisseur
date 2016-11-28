@@ -1,7 +1,6 @@
 package fr.miage.agents.database;
 
 import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.demande.*;
 import fr.miage.agents.api.message.reponse.AppelMethodeIncorrect;
 import fr.miage.agents.api.message.reponse.ReponseAchat;
@@ -77,13 +76,13 @@ public class AgentDatabaseBehaviour extends Behaviour {
         return false;
     }
 
-    public Message traitementAchat(Acheter achat){
+    public ReponseAchat traitementAchat(Acheter achat){
         ReponseAchat ra = new ReponseAchat();
         ra.session = achat.session;
         ra.idProduit = achat.idProduit;
         ra.prixCalcule = Strategie.venteProduit(achat.idProduit,achat.quantiteProduit);
         ra.quantiteProduit = Strategie.getQuantiteDispoDemande(achat.idProduit,achat.quantiteProduit);
-        return new Message(TypeMessage.ReponseAchat);
+        return ra;
     }
 
 }

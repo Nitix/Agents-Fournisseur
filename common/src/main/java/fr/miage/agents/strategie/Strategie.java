@@ -2,7 +2,6 @@ package fr.miage.agents.strategie;
 
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 
@@ -13,7 +12,6 @@ public class Strategie {
 
     public static float venteProduit(long id, int quantiteDemandee){
         Session session = HibernateUtil.openSession();
-        System.out.println(id);
         Produit p =  (Produit) session.get(Produit.class, id);
 
         float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
@@ -41,8 +39,11 @@ public class Strategie {
         return prix;
     }
 
-    public static float getPrixStrategiqueByQuantiteDemandee(Produit p, int quantiteDemandee){
-        float pourcentageQuantite = ((quantiteDemandee*100)/p.getQuantiteProduit());
+    public static float getPrixStrategiqueByQuantiteDemandee(Produit p, int quantiteDemandee) {
+        float pourcentageQuantite = 1/2;
+        if(p.getQuantiteProduit()>0){
+            pourcentageQuantite = ((quantiteDemandee*100)/p.getQuantiteProduit());
+        }
         return p.getPrixProduit()+((100*20/p.getPrixProduit())/(2*pourcentageQuantite));
     }
 

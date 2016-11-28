@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.metamodel.MetadataSources;
 
 /**
  * Created by Alexandre on 09/11/2016.

@@ -6,7 +6,6 @@ package fr.miage.agents.fournisseur.model;
 import fr.miage.agents.util.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Iterator;
