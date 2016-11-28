@@ -10,14 +10,13 @@ import org.hibernate.Query;
 import javax.persistence.*;
 import java.util.Iterator;
 import java.util.List;
+
 @Entity
-@Table(name="Produit")
+@Table(name="produit")
 public class Produit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProduit")
-    private int idProduit;
     @Column(name = "nomProduit")
     private String nomProduit;
     @Column(name = "descriptionProduit")
@@ -36,8 +35,7 @@ public class Produit {
 
     public static SessionFactory factory;
 
-    public Produit(int idProduit, String nomProduit, String descriptionProduit, float prixProduit, int quantiteProduit, Categorie idCategorie, String marqueProduit) {
-        this.idProduit = idProduit;
+    public Produit(String nomProduit, String descriptionProduit, float prixProduit, int quantiteProduit, Categorie idCategorie, String marqueProduit) {
         this.nomProduit = nomProduit;
         this.descriptionProduit = descriptionProduit;
         this.prixProduit = prixProduit;
@@ -47,14 +45,6 @@ public class Produit {
     }
 
     public Produit() {
-    }
-
-    public int getIdProduit() {
-        return idProduit;
-    }
-
-    public void setIdProduit(int idProduit) {
-        this.idProduit = idProduit;
     }
 
     public String getNomProduit() {
