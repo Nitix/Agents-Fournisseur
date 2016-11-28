@@ -7,23 +7,11 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class AgentMagasinier extends Agent{
     protected void setup() {
         System.out.println("Bonjour ! Mon nom est "+getLocalName()+" est je suis un magasinier !");
-        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-        msg.addReceiver(new AID("database", AID.ISLOCALNAME));
-        try {
-            Acheter achat = new Acheter();
-            achat.idProduit = 1;
-            achat.quantiteProduit = 3;
-            msg.setContentObject(achat);
-
-            System.out.println("Envois d'une demande d'achat");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        send(msg);
     }
 
 

@@ -26,8 +26,8 @@ public class Produit {
     private String descriptionProduit;
     @Column(name = "prixProduit")
     private float prixProduit;
-    @Column(name = "quantiteProduit")
-    private int quantiteProduit = 0;
+    @Column(name = "quantiteProduit", columnDefinition = "long default 0")
+    private int quantiteProduit;
     @Column(name = "marqueProduit")
     private String marqueProduit;
 

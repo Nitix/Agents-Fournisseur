@@ -35,7 +35,7 @@ public class AgentDatabaseBehaviour extends Behaviour {
             System.out.println("type du message envoyé :"+m.type);
             switch (m.type){
                 case Achat:
-                    Acheter achat = (Acheter) m;
+                    Acheter achat = (Acheter) msg.getContentObject();
                     Message reponse = traitementAchat(achat);
                     ACLMessage msgReponse = new ACLMessage(ACLMessage.INFORM);
                     msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));

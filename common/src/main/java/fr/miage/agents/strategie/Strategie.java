@@ -13,6 +13,7 @@ public class Strategie {
 
     public static float venteProduit(long id, int quantiteDemandee){
         Session session = HibernateUtil.openSession();
+        System.out.println(id);
         Produit p =  (Produit) session.get(Produit.class, id);
 
         float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);

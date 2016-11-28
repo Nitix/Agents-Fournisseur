@@ -8,6 +8,7 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 
 import java.io.IOException;
+import java.util.UUID;
 
 
 public class AgentProducteur extends Agent{
@@ -24,8 +25,11 @@ public class AgentProducteur extends Agent{
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
         try {
-            msg.setContentObject(new Acheter());
-
+            Acheter achat = new Acheter();
+            achat.session = UUID.randomUUID();
+            achat.idProduit = 1;
+            achat.quantiteProduit = 3;
+            msg.setContentObject(achat);
             System.out.println("Envois d'une demande d'achat");
         } catch (IOException e) {
             e.printStackTrace();
