@@ -4,19 +4,13 @@ import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.demande.*;
 import fr.miage.agents.api.message.reponse.ResultatRecherche;
-import fr.miage.agents.fournisseur.model.Categorie;
-import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.strategie.Strategie;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.event.MessageAdapter;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 /**
