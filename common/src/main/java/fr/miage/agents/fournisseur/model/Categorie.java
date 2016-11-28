@@ -17,7 +17,7 @@ public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idCategorie")
-    private int idCategorie;
+    private long idCategorie;
     @Column(name="nomCategorie")
     private String nomCategorie;
 
@@ -25,7 +25,7 @@ public class Categorie {
     private Set<Produit> produits;
 
 
-    public Categorie(int idCategorie, String nomCategorie) {
+    public Categorie(long idCategorie, String nomCategorie) {
         this.idCategorie = idCategorie;
         this.nomCategorie = nomCategorie;
     }
@@ -33,11 +33,11 @@ public class Categorie {
     public Categorie() {
     }
 
-    public int getIdCategorie() {
+    public long getIdCategorie() {
         return idCategorie;
     }
 
-    public void setIdCategorie(int idCategorie) {
+    public void setIdCategorie(long idCategorie) {
         this.idCategorie = idCategorie;
     }
 
@@ -50,16 +50,16 @@ public class Categorie {
     }
 
     /* Method to CREATE a category in the database */
-    public static Integer addCategorie(String nomCategorie){
+    public static Long addCategorie(String nomCategorie){
 
         Transaction tx = null;
-        Integer categorieID = null;
+        Long categorieID = null;
         Session session = HibernateUtil.openSession();
         try {
             tx = session.beginTransaction();
             Categorie categorie = new Categorie();
             categorie.setNomCategorie(nomCategorie);
-            categorieID = (Integer) session.save(categorie);
+            categorieID = (Long) session.save(categorie);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -70,7 +70,7 @@ public class Categorie {
         return categorieID;
     }
 
-    public void updateCategorieId(String nomCategorie, Integer categorieID ){
+    public void updateCategorieId(String nomCategorie, Long categorieID ){
         Transaction tx = null;
         Session session = HibernateUtil.openSession();
         try{

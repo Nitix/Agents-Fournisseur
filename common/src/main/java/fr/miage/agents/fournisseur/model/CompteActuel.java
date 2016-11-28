@@ -16,7 +16,7 @@ public class CompteActuel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCompte")
-    private int id;
+    private long id;
     @Column(name = "sommeActuelle")
     private float sommeActuelle;
 
@@ -27,15 +27,15 @@ public class CompteActuel {
     public CompteActuel() {
     }
 
-    public Integer generateCompte(float sommeDepart) {
+    public Long generateCompte(float sommeDepart) {
 
         Transaction tx = null;
-        Integer compteID = null;
+        Long compteID = null;
         Session session = HibernateUtil.openSession();
         try {
             tx = session.beginTransaction();
             CompteActuel categorie = new CompteActuel(sommeDepart);
-            compteID = (Integer) session.save(categorie);
+            compteID = (Long) session.save(categorie);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -46,7 +46,7 @@ public class CompteActuel {
         return compteID;
     }
 
-    public void updateCompte(float nombre, Integer idCompteActuelle) {
+    public void updateCompte(float nombre, Long idCompteActuelle) {
         Transaction tx = null;
         Session session = HibernateUtil.openSession();
         try {
@@ -63,7 +63,7 @@ public class CompteActuel {
         }
     }
 
-    public float getNombreCompte(Integer idCompteActuelle) {
+    public float getNombreCompte(Long idCompteActuelle) {
         Transaction tx = null;
         Session session = HibernateUtil.openSession();
         try {

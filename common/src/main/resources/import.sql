@@ -7,7 +7,6 @@ INSERT INTO  categorie (idCategorie, nomCategorie) VALUES
 (6,'High-Tech');
 
 INSERT INTO produit (nomProduit, marqueProduit, descriptionProduit, prixProduit, idCategorie) VALUES
- 
 ('Carotte','Bonduel','Légume orange riche en protéines',1.00,1),
 ('Poireau','Géant Vert','Légume vert plein de fibre',1.20,1),
 ('Citrouille','Cascina Belvedere','Légume orange parfait pour les fêtes d''Halloween',1.95,1),
@@ -156,4 +155,4 @@ INSERT INTO produit (nomProduit, marqueProduit, descriptionProduit, prixProduit,
 ('Chaine HiFI','Samsung','Chaine HiFi avec son HD',35.90,6),
 ('Radio','Sony','Capter toutes vos radios préférées',21.30,6),
 ('Ecran PC','Phillips','Ecran 15 pouces LED',59.80,6),
-('Montre connectée','Apple','Montre connectée répondant à tous vos besoins',177.60,6)
+('Montre connectée','Apple','Montre connectée répondant à tous vos besoins',177.60,6);
