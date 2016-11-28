@@ -1,3 +1,11 @@
+INSERT INTO  categorie (idCategorie, nomCategorie) VALUES
+(1,'Légume'),
+(2,'Produit laitier'),
+(3,'Boisson'),
+(4,'Produit entretien'),
+(5,'Cosmétique'),
+(6,'High-Tech');
+
 INSERT INTO produit (nomProduit, marqueProduit, descriptionProduit, prixProduit, idCategorie) VALUES
  
 ('Carotte','Bonduel','Légume orange riche en protéines',1.00,1),
