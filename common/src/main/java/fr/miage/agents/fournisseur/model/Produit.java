@@ -6,6 +6,7 @@ package fr.miage.agents.fournisseur.model;
 import fr.miage.agents.util.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -24,14 +25,13 @@ public class Produit {
     @Column(name = "prixProduit")
     private float prixProduit;
     @Column(name = "quantiteProduit")
-    private int quantiteProduit;
+    private int quantiteProduit = 0;
     @Column(name = "marqueProduit")
     private String marqueProduit;
 
     @ManyToOne
     @JoinColumn(name="idCategorie")
     private Categorie idCategorie;
-
 
     public static SessionFactory factory;
 

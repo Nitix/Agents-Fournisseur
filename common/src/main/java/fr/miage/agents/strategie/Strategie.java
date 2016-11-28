@@ -11,7 +11,7 @@ import org.hibernate.Query;
 public class Strategie {
 
     public static float venteProduit(String nomProduit, String marqueProduit, int quantiteDemandee){
-        Query query= HibernateUtil.openSession().createQuery("from produit where nomProduit=:name and marqueProduit=:mrq");
+        Query query= HibernateUtil.openSession().createQuery("from Produit p where p.nomProduit=:name and p.marqueProduit=:mrq");
         query.setParameter("name", nomProduit);
         query.setParameter("mrq", marqueProduit);
         Produit p = (Produit) query.uniqueResult();
