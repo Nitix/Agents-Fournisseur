@@ -19,43 +19,18 @@ import java.util.Map;
  */
 public class AgentDatabase extends Agent {
 
-    private static final HashMap<String, String> produitCategorieMap;
-    static
-    {
-        produitCategorieMap = new HashMap<String, String>();
-        produitCategorieMap.put("Carotte", "Légume");
-        produitCategorieMap.put("Poireau", "Légume");
-        produitCategorieMap.put("Citrouille", "Légume");
-        produitCategorieMap.put("Brie", "Produit laitier");
-        produitCategorieMap.put("Comté", "Produit laitier");
-        produitCategorieMap.put("Lait", "Produit laitier");
-        produitCategorieMap.put("Bière", "Boisson");
-        produitCategorieMap.put("Eau", "Boisson");
-        produitCategorieMap.put("Coca", "Boisson");
-        produitCategorieMap.put("Javel", "Produit entretien");
-        produitCategorieMap.put("Lave vitre", "Produit entretien");
-        produitCategorieMap.put("Liquide vaisselle", "Produit entretien");
-        produitCategorieMap.put("Rouge à lèvre", "Cosmétique");
-        produitCategorieMap.put("Fond de teint", "Cosmétique");
-        produitCategorieMap.put("Parfum", "Cosmétique");
-        produitCategorieMap.put("Television HD", "High-tech");
-        produitCategorieMap.put("Smartphone", "High-tech");
-        produitCategorieMap.put("Rasoir éléctrique", "High-tech");
-
-    }
-
     protected void setup() {
         System.out.println("Bonjour ! Mon nom est "+getLocalName()+" et je suis le taulier de la BDD !");
 
         addBehaviour(new AgentDatabaseBehaviour(this));
     }
 
-    protected void init(){
+    /*protected void init(){
         if(!isDataBaseCreated()){
             Transaction tx = null;
             try (Session session = HibernateUtil.openSession()){
                 tx = session.beginTransaction();
-                for (Map.Entry<String,String> e : produitCategorieMap.entrySet()) {
+                /*for (Map.Entry<String,String> e : produitCategorieMap.entrySet()) {
                     Categorie c = new Categorie();
                     if(isCategorieExist(e.getValue())==null){
                         c.setNomCategorie(e.getValue());
@@ -73,9 +48,9 @@ public class AgentDatabase extends Agent {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
-    private Categorie isCategorieExist(String name){
+    /*private Categorie isCategorieExist(String name){
         Query query= HibernateUtil.openSession().createQuery("from Categorie where nomCategorie=:name");
         query.setParameter("name", name);
         Categorie c = (Categorie) query.uniqueResult();
@@ -87,9 +62,9 @@ public class AgentDatabase extends Agent {
             return c;
         }
 
-    }
+    }*/
 
-    private boolean isDataBaseCreated(){
+    /*private boolean isDataBaseCreated(){
         Transaction tx = null;
         try(Session session = HibernateUtil.openSession()){
             tx = session.beginTransaction();
@@ -105,5 +80,5 @@ public class AgentDatabase extends Agent {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
 }

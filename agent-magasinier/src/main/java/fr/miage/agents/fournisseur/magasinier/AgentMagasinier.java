@@ -14,7 +14,12 @@ public class AgentMagasinier extends Agent{
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
         try {
-            msg.setContentObject(new Acheter());
+            Acheter achat = new Acheter();
+            achat.idSession = 1;
+            achat.nomProduit = "pomme";
+            achat.marqueProduit = "Grany";
+            achat.quantiteProduit = 3;
+            msg.setContentObject(achat);
 
             System.out.println("Envois d'une demande d'achat");
         } catch (IOException e) {
