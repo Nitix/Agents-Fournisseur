@@ -2,7 +2,7 @@ package fr.miage.agents.strategie;
 
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.util.HibernateUtil;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 
 
 /**

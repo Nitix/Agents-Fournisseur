@@ -4,11 +4,8 @@ package fr.miage.agents.fournisseur.model;
  */
 
 import fr.miage.agents.util.HibernateUtil;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import org.hibernate.*;
+import org.hibernate.Query;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -112,7 +109,8 @@ public class Produit {
     public static Integer addProduit(String nomProduit, String descriptionProduit, float prixProduit, int quantite, int categorieID, String marqueProduit){
         Transaction tx = null;
         Integer produitID = null;
-        try(Session session = HibernateUtil.openSession();){
+        Session session = HibernateUtil.openSession();
+        try{
             tx = session.beginTransaction();
             Produit produit = new Produit();
             produit.setNomProduit(nomProduit);
@@ -127,6 +125,8 @@ public class Produit {
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return produitID;
     }
@@ -134,7 +134,8 @@ public class Produit {
     /* Method to UPDATE price for an product */
     public static void updateProduit(Integer ProductID, float prixProduit ){
         Transaction tx = null;
-        try(Session session = HibernateUtil.openSession()){
+        Session session = HibernateUtil.openSession();
+        try{
             tx = session.beginTransaction();
             Produit produit =
                     (Produit) session.get(Produit.class, ProductID);
@@ -144,6 +145,8 @@ public class Produit {
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 
@@ -151,7 +154,8 @@ public class Produit {
     /* Method to  READ all the products */
     public static void listProduits( ) {
         Transaction tx = null;
-        try(Session session = HibernateUtil.openSession()){
+        Session session = HibernateUtil.openSession();
+        try{
             tx = session.beginTransaction();
             List produits = session.createQuery("FROM Produit").list();
             for (Iterator iterator =
@@ -167,6 +171,8 @@ public class Produit {
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 
@@ -178,10 +184,13 @@ public class Produit {
         query.setParameter("marque", marque);
         Produit produit = (Produit) query.uniqueResult();
         produit.setQuantiteProduit(produit.getQuantiteProduit() + quantite);
-        try(Session session = HibernateUtil.openSession();){
+        Session session = HibernateUtil.openSession();
+        try{
             session.persist(produit);
         }catch (Exception e){
 
+        }finally {
+            session.close();
         }
     }
 

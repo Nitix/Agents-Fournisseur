@@ -7,7 +7,6 @@ import jade.core.Agent;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.util.HashMap;
 import java.util.Iterator;

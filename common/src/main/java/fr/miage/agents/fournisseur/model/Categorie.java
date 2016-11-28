@@ -54,7 +54,8 @@ public class Categorie {
 
         Transaction tx = null;
         Integer categorieID = null;
-        try (Session session = HibernateUtil.openSession()){
+        Session session = HibernateUtil.openSession();
+        try {
             tx = session.beginTransaction();
             Categorie categorie = new Categorie();
             categorie.setNomCategorie(nomCategorie);
@@ -63,13 +64,16 @@ public class Categorie {
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return categorieID;
     }
 
     public void updateCategorieId(String nomCategorie, Integer categorieID ){
         Transaction tx = null;
-        try(Session session = HibernateUtil.openSession()){
+        Session session = HibernateUtil.openSession();
+        try{
             tx = session.beginTransaction();
             Categorie categorie = (Categorie) session.get(Categorie.class, nomCategorie);
             categorie.setIdCategorie(categorieID);
@@ -78,6 +82,8 @@ public class Categorie {
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 }

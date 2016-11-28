@@ -3,6 +3,7 @@ package fr.miage.agents.database;
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.demande.*;
+import fr.miage.agents.api.message.reponse.AppelMethodeIncorrect;
 import fr.miage.agents.api.message.reponse.ResultatRecherche;
 import fr.miage.agents.strategie.Strategie;
 import jade.core.AID;
@@ -44,10 +45,14 @@ public class AgentDatabaseBehaviour extends Behaviour {
                     }
                     break;
                 case Aide:
-                    Aide aide = (Aide) m;
-                    break;
                 case DemandeDistance:
-                    DemandeDistance demandeDistane = (DemandeDistance) m;
+                    msgReponse = new ACLMessage(ACLMessage.FAILURE);
+                    msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    try {
+                        msgReponse.setContentObject(new AppelMethodeIncorrect());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case NegocierPrix:
                     NegocierPrix negociation = (NegocierPrix) m;

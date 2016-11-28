@@ -31,7 +31,8 @@ public class CompteActuel {
 
         Transaction tx = null;
         Integer compteID = null;
-        try (Session session = HibernateUtil.openSession()) {
+        Session session = HibernateUtil.openSession();
+        try {
             tx = session.beginTransaction();
             CompteActuel categorie = new CompteActuel(sommeDepart);
             compteID = (Integer) session.save(categorie);
@@ -39,13 +40,16 @@ public class CompteActuel {
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return compteID;
     }
 
     public void updateCompte(float nombre, Integer idCompteActuelle) {
         Transaction tx = null;
-        try (Session session = HibernateUtil.openSession()) {
+        Session session = HibernateUtil.openSession();
+        try {
             tx = session.beginTransaction();
             CompteActuel compteActuel = (CompteActuel) session.get(CompteActuel.class, idCompteActuelle);
             compteActuel.sommeActuelle = compteActuel.sommeActuelle + nombre;
@@ -54,18 +58,23 @@ public class CompteActuel {
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 
     public float getNombreCompte(Integer idCompteActuelle) {
         Transaction tx = null;
-        try (Session session = HibernateUtil.openSession()) {
+        Session session = HibernateUtil.openSession();
+        try {
             tx = session.beginTransaction();
             CompteActuel compteActuel = (CompteActuel) session.get(CompteActuel.class, idCompteActuelle);
             return compteActuel.sommeActuelle;
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return 0;
     }
