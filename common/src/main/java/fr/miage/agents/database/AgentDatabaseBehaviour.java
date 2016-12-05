@@ -21,7 +21,8 @@ public class AgentDatabaseBehaviour extends Behaviour {
     Agent myAgent;
     private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
-    HashMap<UUID, Integer> sessionProduit = new HashMap<>();
+    HashMap<UUID, Panier> sessionPanier = new HashMap<>();
+    private float recettes = 0;
 
     public AgentDatabaseBehaviour(AgentDatabase receiveMessagerAgent) {
         this.myAgent = receiveMessagerAgent;
@@ -76,29 +77,46 @@ public class AgentDatabaseBehaviour extends Behaviour {
 
     private ResultatFinalisationAchat traitemantFinalisationAchat(FinaliserAchat fa) {
         ResultatFinalisationAchat rfa = new ResultatFinalisationAchat();
-
+        rfa.session = fa.session;
+        rfa.idProduit = sessionPanier.get(fa.session).getIdProduit();
+        rfa.prixFinal = sessionPanier.get(fa.session).getPrix();
+        executerAchat(sessionPanier.get(fa.session));
+        sessionPanier.remove(fa.session);
         return rfa;
+    }
+
+    private ResultatAnnulationAchat traitementAnnulationAchat(AnnulerAchat aa){
+        ResultatAnnulationAchat raa = new ResultatAnnulationAchat();
+        sessionPanier.remove(aa.session);
+        raa.session = aa.session;
+        return raa;
     }
 
     private ResultatNegociation traitementNegociation(NegocierPrix nego) {
         ResultatNegociation rn = new ResultatNegociation();
-        float prixCalcule = Strategie.venteProduit(sessionProduit.get(nego.session),nego.quantiteDemande);
+        Panier p = sessionPanier.get(nego.session);
+        float prixCalcule = Strategie.venteProduit(p.getIdProduit(),nego.quantiteDemande);
 
         if(Strategie.accepterRefuserNegociation(nego.prixDemande, nego.quantiteDemande, prixCalcule)){
             rn.estAccepte = true;
             rn.prixNegocie = nego.prixDemande;
+            Panier pNew = sessionPanier.get(nego.session);
+            p.setPrix(nego.prixDemande);
+            p.setQuantite(nego.quantiteDemande);
+            sessionPanier.put(nego.session,pNew);
         }
         else{
             rn.prixNegocie = prixCalcule;
             rn.estAccepte = false;
         }
-        rn.quantiteDisponible = Strategie.getQuantiteDispoDemande(sessionProduit.get(nego.session),nego.quantiteDemande);
+        rn.quantiteDisponible = Strategie.getQuantiteDispoDemande(p.getIdProduit(),nego.quantiteDemande);
         return rn;
     }
 
     public ResultatInitiationAchat traitementInitierAchat(InitierAchat achat){
         ResultatInitiationAchat ria = new ResultatInitiationAchat();
-        sessionProduit.put(achat.session,achat.idProduit);
+        Panier p = new Panier(achat.idProduit, achat.quantite);
+        sessionPanier.put(achat.session, p);
         ria.session = achat.session;
         ria.success = true;
         ria.quantiteDisponible = Strategie.getQuantiteDispoDemande(achat.idProduit, achat.quantite);
@@ -109,5 +127,9 @@ public class AgentDatabaseBehaviour extends Behaviour {
         return false;
     }
 
+    private void executerAchat(Panier panier){
+        recettes += panier.getPrix()*panier.getQuantite();
+        
+    }
 
 }

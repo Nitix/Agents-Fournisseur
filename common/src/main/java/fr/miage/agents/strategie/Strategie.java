@@ -10,7 +10,7 @@ import org.hibernate.Session;
  */
 public class Strategie {
 
-    public static float venteProduit(int id, int quantiteDemandee){
+    public static float venteProduit(long id, int quantiteDemandee){
         Session session = HibernateUtil.openSession();
         Produit p =  (Produit) session.get(Produit.class, id);
 
