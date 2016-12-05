@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="db">
+  <database-model serializer="dbm" rdbms="H2" format-version="4.0">
+    <root id="1"/>
+    <database id="2" parent="1" name="DB">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="INFORMATION_SCHEMA"/>
+    <schema id="4" parent="2" name="PUBLIC">
+      <Visible>1</Visible>
+    </schema>
+    <table id="5" parent="4" name="CATEGORIE"/>
+    <table id="6" parent="4" name="COMPTEACTUEL"/>
+    <table id="7" parent="4" name="PRODUIT"/>
+    <column id="8" parent="5" name="IDCATEGORIE">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_144A70DC_B9EB_48D3_9028_6B34509F3A5E)</DefaultExpression>
+    </column>
+    <column id="9" parent="5" name="NOMCATEGORIE">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <key id="10" parent="5" name="CONSTRAINT_3">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>IDCATEGORIE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="11" parent="6" name="IDCOMPTE">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_613A207B_424E_45A5_A910_DE4A23123581)</DefaultExpression>
+    </column>
+    <column id="12" parent="6" name="SOMMEACTUELLE">
+      <Position>2</Position>
+      <DataType>DOUBLE(17)|8</DataType>
+    </column>
+    <key id="13" parent="6" name="CONSTRAINT_9">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>IDCOMPTE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="14" parent="7" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_196B49B7_A28D_45F5_8617_88C367CB6D5C)</DefaultExpression>
+    </column>
+    <column id="15" parent="7" name="DESCRIPTIONPRODUIT">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="16" parent="7" name="MARQUEPRODUIT">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="17" parent="7" name="NOMPRODUIT">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="18" parent="7" name="PRIXPRODUIT">
+      <Position>5</Position>
+      <DataType>DOUBLE(17)|8</DataType>
+    </column>
+    <column id="19" parent="7" name="QUANTITEPRODUIT">
+      <Position>6</Position>
+      <DataType>INTEGER(10)|4</DataType>
+    </column>
+    <column id="20" parent="7" name="IDCATEGORIE">
+      <Position>7</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+    </column>
+    <key id="21" parent="7" name="CONSTRAINT_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="22" parent="7" name="FK_QH491KE2FH3U3SF5BN03NFOI4">
+      <ColNames>IDCATEGORIE</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>CATEGORIE</RefTableName>
+      <RefKeyName>CONSTRAINT_3</RefKeyName>
+      <RefColNames>IDCATEGORIE</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
