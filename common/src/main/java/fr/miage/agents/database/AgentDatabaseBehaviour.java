@@ -1,10 +1,7 @@
 package fr.miage.agents.database;
 
 import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.negociation.InitierAchat;
-import fr.miage.agents.api.message.negociation.NegocierPrix;
-import fr.miage.agents.api.message.negociation.ResultatInitiationAchat;
-import fr.miage.agents.api.message.negociation.ResultatNegociation;
+import fr.miage.agents.api.message.negociation.*;
 import fr.miage.agents.strategie.Strategie;
 import jade.core.AID;
 import jade.core.Agent;
@@ -13,6 +10,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by Alexandre on 11/11/2016.
@@ -21,6 +20,8 @@ public class AgentDatabaseBehaviour extends Behaviour {
 
     Agent myAgent;
     private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+
+    HashMap<UUID, Integer> sessionProduit = new HashMap<>();
 
     public AgentDatabaseBehaviour(AgentDatabase receiveMessagerAgent) {
         this.myAgent = receiveMessagerAgent;
@@ -55,6 +56,15 @@ public class AgentDatabaseBehaviour extends Behaviour {
                     }
                     break;
                 case FinaliserAchat:
+                    FinaliserAchat fa = (FinaliserAchat) msg.getContentObject();
+                    Message reponseFinalisationAchat = traitemantFinalisationAchat(fa);
+                    ACLMessage msgReponseFinalisationAchat = new ACLMessage(ACLMessage.INFORM);
+                    msgReponseFinalisationAchat.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    try {
+                        msgReponseFinalisationAchat.setContentObject(reponseFinalisationAchat);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case AnnulerAchat:
                     break;
@@ -64,12 +74,17 @@ public class AgentDatabaseBehaviour extends Behaviour {
         }
     }
 
+    private ResultatFinalisationAchat traitemantFinalisationAchat(FinaliserAchat fa) {
+        ResultatFinalisationAchat rfa = new ResultatFinalisationAchat();
+
+        return rfa;
+    }
+
     private ResultatNegociation traitementNegociation(NegocierPrix nego) {
         ResultatNegociation rn = new ResultatNegociation();
-        //Demander à Guillaume pour récupérer l'id du produit aussi ici
-        //float prixCalcule = Strategie.venteProduit(nego.idProduit,nego.quantiteDemande);
-        int prixCalcule = 0;
-        if(prixCalcule < nego.prixDemande){
+        float prixCalcule = Strategie.venteProduit(sessionProduit.get(nego.session),nego.quantiteDemande);
+
+        if(Strategie.accepterRefuserNegociation(prixCalcule, nego.quantiteDemande, nego.prixDemande)){
             rn.estAccepte = true;
             rn.prixNegocie = nego.prixDemande;
         }
@@ -77,14 +92,15 @@ public class AgentDatabaseBehaviour extends Behaviour {
             rn.prixNegocie = prixCalcule;
             rn.estAccepte = false;
         }
-        //rn.quantiteDisponible = Strategie.getQuantiteDispoDemande(nego.idProduit,nego.quantiteDemande);
+        rn.quantiteDisponible = Strategie.getQuantiteDispoDemande(sessionProduit.get(nego.session),nego.quantiteDemande);
         return rn;
     }
 
     public ResultatInitiationAchat traitementInitierAchat(InitierAchat achat){
         ResultatInitiationAchat ria = new ResultatInitiationAchat();
+        sessionProduit.put(achat.session,achat.idProduit);
         ria.session = achat.session;
-        ria.success = true; //Pourquoi ?
+        ria.success = true;
         ria.quantiteDisponible = Strategie.getQuantiteDispoDemande(achat.idProduit, achat.quantite);
         return ria;
     }
