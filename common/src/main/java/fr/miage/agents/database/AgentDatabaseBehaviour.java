@@ -84,7 +84,7 @@ public class AgentDatabaseBehaviour extends Behaviour {
         ResultatNegociation rn = new ResultatNegociation();
         float prixCalcule = Strategie.venteProduit(sessionProduit.get(nego.session),nego.quantiteDemande);
 
-        if(Strategie.accepterRefuserNegociation(prixCalcule, nego.quantiteDemande, nego.prixDemande)){
+        if(Strategie.accepterRefuserNegociation(nego.prixDemande, nego.quantiteDemande, prixCalcule)){
             rn.estAccepte = true;
             rn.prixNegocie = nego.prixDemande;
         }
