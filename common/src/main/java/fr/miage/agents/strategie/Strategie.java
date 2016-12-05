@@ -29,7 +29,7 @@ public class Strategie {
 
         float prix = -1;
         if(qteStockee > 0){
-            prix = p.getPrixProduit()+((100*20/p.getPrixProduit())/qteStockee);
+            prix = (float) (0.5*Math.exp(-0.0025*qteStockee)+0.25);
         }
         return prix;
     }
