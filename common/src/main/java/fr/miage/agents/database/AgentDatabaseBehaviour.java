@@ -1,10 +1,10 @@
 package fr.miage.agents.database;
 
 import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.demande.*;
-import fr.miage.agents.api.message.reponse.AppelMethodeIncorrect;
-import fr.miage.agents.api.message.reponse.ReponseAchat;
-import fr.miage.agents.api.message.reponse.ResultatRecherche;
+import fr.miage.agents.api.message.negociation.InitierAchat;
+import fr.miage.agents.api.message.negociation.NegocierPrix;
+import fr.miage.agents.api.message.negociation.ResultatInitiationAchat;
+import fr.miage.agents.api.message.negociation.ResultatNegociation;
 import fr.miage.agents.strategie.Strategie;
 import jade.core.AID;
 import jade.core.Agent;
@@ -24,7 +24,6 @@ public class AgentDatabaseBehaviour extends Behaviour {
 
     public AgentDatabaseBehaviour(AgentDatabase receiveMessagerAgent) {
         this.myAgent = receiveMessagerAgent;
-
     }
 
     public void action() {
@@ -33,38 +32,31 @@ public class AgentDatabaseBehaviour extends Behaviour {
             Message m = (Message) msg.getContentObject();
             System.out.println("type du message envoyé :"+m.type);
             switch (m.type){
-                case Achat:
-                    Acheter achat = (Acheter) msg.getContentObject();
-                    Message reponse = traitementAchat(achat);
-                    ACLMessage msgReponse = new ACLMessage(ACLMessage.INFORM);
-                    msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                case InitierAchat:
+                    InitierAchat achat = (InitierAchat) msg.getContentObject();
+                    Message resultatInitiationAchat = traitementInitierAchat(achat);
+                    ACLMessage msgResponseInitiationAchat = new ACLMessage(ACLMessage.INFORM);
+                    msgResponseInitiationAchat.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
                     try {
-                        msgReponse.setContentObject(reponse);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case Aide:
-                case DemandeDistance:
-                    msgReponse = new ACLMessage(ACLMessage.FAILURE);
-                    msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
-                    try {
-                        msgReponse.setContentObject(new AppelMethodeIncorrect());
+                        msgResponseInitiationAchat.setContentObject(resultatInitiationAchat);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case NegocierPrix:
-                    NegocierPrix negociation = (NegocierPrix) m;
+                    NegocierPrix nego = (NegocierPrix) msg.getContentObject();
+                    Message reponseNego = traitementNegociation(nego);
+                    ACLMessage msgReponse = new ACLMessage(ACLMessage.INFORM);
+                    msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    try {
+                        msgReponse.setContentObject(reponseNego);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
-                case PrevenirSolde:
-                    PrevenirSolde prevenirSolde = (PrevenirSolde) m;
+                case FinaliserAchat:
                     break;
-                case Recherche:
-                    Recherche recherche = (Recherche) m;
-                    break;
-                case ResultatRecherche:
-                    ResultatRecherche resultatRecherche = (ResultatRecherche) m;
+                case AnnulerAchat:
                     break;
             }
         } catch (UnreadableException e) {
@@ -72,17 +64,34 @@ public class AgentDatabaseBehaviour extends Behaviour {
         }
     }
 
+    private ResultatNegociation traitementNegociation(NegocierPrix nego) {
+        ResultatNegociation rn = new ResultatNegociation();
+        //Demander à Guillaume pour récupérer l'id du produit aussi ici
+        //float prixCalcule = Strategie.venteProduit(nego.idProduit,nego.quantiteDemande);
+        int prixCalcule = 0;
+        if(prixCalcule < nego.prixDemande){
+            rn.estAccepte = true;
+            rn.prixNegocie = nego.prixDemande;
+        }
+        else{
+            rn.prixNegocie = prixCalcule;
+            rn.estAccepte = false;
+        }
+        //rn.quantiteDisponible = Strategie.getQuantiteDispoDemande(nego.idProduit,nego.quantiteDemande);
+        return rn;
+    }
+
+    public ResultatInitiationAchat traitementInitierAchat(InitierAchat achat){
+        ResultatInitiationAchat ria = new ResultatInitiationAchat();
+        ria.session = achat.session;
+        ria.success = true; //Pourquoi ?
+        ria.quantiteDisponible = Strategie.getQuantiteDispoDemande(achat.idProduit, achat.quantite);
+        return ria;
+    }
+
     public boolean done() {
         return false;
     }
 
-    public ReponseAchat traitementAchat(Acheter achat){
-        ReponseAchat ra = new ReponseAchat();
-        ra.session = achat.session;
-        ra.idProduit = achat.idProduit;
-        ra.prixCalcule = Strategie.venteProduit(achat.idProduit,achat.quantiteProduit);
-        ra.quantiteProduit = Strategie.getQuantiteDispoDemande(achat.idProduit,achat.quantiteProduit);
-        return ra;
-    }
 
 }

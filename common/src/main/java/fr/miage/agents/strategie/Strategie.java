@@ -10,19 +10,14 @@ import org.hibernate.Session;
  */
 public class Strategie {
 
-    public static float venteProduit(long id, int quantiteDemandee){
+    public static float venteProduit(int id, int quantiteDemandee){
         Session session = HibernateUtil.openSession();
         Produit p =  (Produit) session.get(Produit.class, id);
 
         float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
         float prixCalculePourDemande = 0;
-        if(assezQuantite(p, quantiteDemandee)){
-            prixCalculePourDemande = getPrixStrategiqueByQuantiteDemandee(p, quantiteDemandee);
-        }
-        else{
-            quantiteDemandee = p.getQuantiteProduit();
-            prixCalculePourDemande = getPrixStrategiqueByQuantiteDemandee(p, quantiteDemandee);
-        }
+        quantiteDemandee = p.getQuantiteProduit();
+        prixCalculePourDemande = getPrixStrategiqueByQuantiteDemandee(p, quantiteDemandee);
 
         float prixVente = (prixCalculeProduitStocke + prixCalculePourDemande)/2;
         return prixVente*quantiteDemandee;
@@ -45,10 +40,6 @@ public class Strategie {
             pourcentageQuantite = ((quantiteDemandee*100)/p.getQuantiteProduit());
         }
         return p.getPrixProduit()+((100*20/p.getPrixProduit())/(2*pourcentageQuantite));
-    }
-
-    public static boolean assezQuantite(Produit p, int quantite){
-        return p.getQuantiteProduit()>=quantite;
     }
 
     public static boolean accepterRefuserNegociation(float prixPropose, int quantiteDemandee, float prixCalcule){
