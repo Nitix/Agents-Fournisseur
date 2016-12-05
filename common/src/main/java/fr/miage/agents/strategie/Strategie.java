@@ -14,32 +14,25 @@ public class Strategie {
         Session session = HibernateUtil.openSession();
         Produit p =  (Produit) session.get(Produit.class, id);
 
-        float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
-        float prixCalculePourDemande = 0;
         quantiteDemandee = p.getQuantiteProduit();
-        prixCalculePourDemande = getPrixStrategiqueByQuantiteDemandee(p, quantiteDemandee);
+        float prixCalculeProduitStocke = getPrixStrategiqueByQuantiteStockee(p);
+        float prixCalculePourDemande = getPrixStrategiqueByQuantiteDemandee(p, quantiteDemandee);
 
         float prixVente = (prixCalculeProduitStocke + prixCalculePourDemande)/2;
         return prixVente*quantiteDemandee;
     }
 
     public static float getPrixStrategiqueByQuantiteStockee(Produit p){
-
         int qteStockee = p.getQuantiteProduit();
-
         float prix = -1;
         if(qteStockee > 0){
-            prix = (float) (0.5*Math.exp(-0.0025*qteStockee)+0.25);
+            prix = (float) (p.getPrixProduit()*(0.5*Math.exp(-0.0025*qteStockee)+0.25));
         }
         return prix;
     }
 
     public static float getPrixStrategiqueByQuantiteDemandee(Produit p, int quantiteDemandee) {
-        float pourcentageQuantite = 1/2;
-        if(p.getQuantiteProduit()>0){
-            pourcentageQuantite = ((quantiteDemandee*100)/p.getQuantiteProduit());
-        }
-        return p.getPrixProduit()+((100*20/p.getPrixProduit())/(2*pourcentageQuantite));
+        return (float) (p.getPrixProduit()* (0.5*Math.exp(-0.0025*quantiteDemandee)+0.25));
     }
 
     public static boolean accepterRefuserNegociation(float prixPropose, int quantiteDemandee, float prixCalcule){
