@@ -2,7 +2,7 @@ package fr.miage.agents.fournisseur.producteur; /**
  * Created by Arthur on 31/10/2016.
  */
 
-import fr.miage.agents.api.message.demande.Acheter;
+import fr.miage.agents.api.message.negociation.InitierAchat;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -25,10 +25,10 @@ public class AgentProducteur extends Agent{
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
         try {
-            Acheter achat = new Acheter();
+            InitierAchat achat = new InitierAchat();
             achat.session = UUID.randomUUID();
             achat.idProduit = 1;
-            achat.quantiteProduit = 3;
+            achat.quantite = 3;
             msg.setContentObject(achat);
             System.out.println("Envois d'une demande d'achat");
         } catch (IOException e) {
