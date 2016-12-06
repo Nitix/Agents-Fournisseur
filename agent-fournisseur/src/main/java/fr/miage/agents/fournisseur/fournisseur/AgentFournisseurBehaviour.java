@@ -34,15 +34,17 @@ public class AgentFournisseurBehaviour extends Behaviour {
         ACLMessage msg = myAgent.blockingReceive(mt);
         try {
             Message m = (Message) msg.getContentObject();
-            System.out.println("type du message envoyé :"+m.type);
+            System.out.println("Fournisseur : 'Message reçu !' : "+m.type);
             switch (m.type){
                 case InitierAchat:
                     InitierAchat achat = (InitierAchat) msg.getContentObject();
                     Message resultatInitiationAchat = traitementInitierAchat(achat);
                     ACLMessage msgResponseInitiationAchat = new ACLMessage(ACLMessage.INFORM);
-                    msgResponseInitiationAchat.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    msgResponseInitiationAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
                     try {
                         msgResponseInitiationAchat.setContentObject(resultatInitiationAchat);
+                        myAgent.send(msgResponseInitiationAchat);
+                        System.out.println("Fournisseur : 'J'envois une réponse !'");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -50,26 +52,38 @@ public class AgentFournisseurBehaviour extends Behaviour {
                 case NegocierPrix:
                     NegocierPrix nego = (NegocierPrix) msg.getContentObject();
                     Message reponseNego = traitementNegociation(nego);
-                    ACLMessage msgReponse = new ACLMessage(ACLMessage.INFORM);
-                    msgReponse.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
+                    msgReponseNego.addReceiver(new AID("jean", AID.ISLOCALNAME));
                     try {
-                        msgReponse.setContentObject(reponseNego);
+                        msgReponseNego.setContentObject(reponseNego);
+                        myAgent.send(msgReponseNego);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case FinaliserAchat:
                     FinaliserAchat fa = (FinaliserAchat) msg.getContentObject();
-                    Message reponseFinalisationAchat = traitemantFinalisationAchat(fa);
+                    Message reponseFinalisationAchat = traitementFinalisationAchat(fa);
                     ACLMessage msgReponseFinalisationAchat = new ACLMessage(ACLMessage.INFORM);
-                    msgReponseFinalisationAchat.addReceiver(new AID("magasinier", AID.ISLOCALNAME));
+                    msgReponseFinalisationAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
                     try {
                         msgReponseFinalisationAchat.setContentObject(reponseFinalisationAchat);
+                        myAgent.send(msgReponseFinalisationAchat);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case AnnulerAchat:
+                    AnnulerAchat aa = (AnnulerAchat) msg.getContentObject();
+                    Message reponseAnnulerAchat = traitementAnnulationAchat(aa);
+                    ACLMessage msgReponseAnnulerAchat = new ACLMessage(ACLMessage.INFORM);
+                    msgReponseAnnulerAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
+                    try {
+                        myAgent.send(msgReponseAnnulerAchat);
+                        msgReponseAnnulerAchat.setContentObject(reponseAnnulerAchat);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         } catch (UnreadableException e) {
@@ -77,7 +91,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
         }
     }
 
-    private ResultatFinalisationAchat traitemantFinalisationAchat(FinaliserAchat fa) {
+    private ResultatFinalisationAchat traitementFinalisationAchat(FinaliserAchat fa) {
         ResultatFinalisationAchat rfa = new ResultatFinalisationAchat();
         rfa.session = fa.session;
         rfa.idProduit = sessionPanier.get(fa.session).getIdProduit();
@@ -130,6 +144,5 @@ public class AgentFournisseurBehaviour extends Behaviour {
 
     private void executerAchat(Panier panier){
         recettes += panier.getPrix()*panier.getQuantite();
-
     }
 }

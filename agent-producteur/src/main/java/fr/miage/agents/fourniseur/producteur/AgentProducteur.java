@@ -1,4 +1,4 @@
-package fr.miage.agents.fournisseur.producteur; /**
+package fr.miage.agents.fourniseur.producteur; /**
  * Created by Arthur on 31/10/2016.
  */
 
@@ -18,16 +18,6 @@ public class AgentProducteur extends Agent{
 
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.addReceiver(new AID("database", AID.ISLOCALNAME));
-        try {
-            InitierAchat achat = new InitierAchat();
-            achat.session = UUID.randomUUID();
-            achat.idProduit = 1;
-            achat.quantite = 3;
-            msg.setContentObject(achat);
-            System.out.println("Envois d'une demande d'achat");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        send(msg);
+        
     }
 }
