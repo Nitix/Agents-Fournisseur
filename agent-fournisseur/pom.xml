@@ -6,8 +6,11 @@
     <dependencies>
         <dependency>
             <groupId>fr.miage.agents</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fr.miage.agents</groupId>
             <artifactId>api</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -17,7 +20,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>fr.miage.agents.fournisseur</groupId>
     <artifactId>agent-fournisseur</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Agent Founisseur</name>
