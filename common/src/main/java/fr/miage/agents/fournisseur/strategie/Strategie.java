@@ -1,7 +1,7 @@
-package fr.miage.agents.strategie;
+package fr.miage.agents.fournisseur.strategie;
 
 import fr.miage.agents.fournisseur.model.Produit;
-import fr.miage.agents.util.HibernateUtil;
+import fr.miage.agents.fournisseur.util.HibernateUtil;
 import org.hibernate.Session;
 
 

@@ -2,8 +2,8 @@ package fr.miage.agents.fournisseur.fournisseur;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
-import fr.miage.agents.database.Panier;
-import fr.miage.agents.strategie.Strategie;
+import fr.miage.agents.fournisseur.database.Panier;
+import fr.miage.agents.fournisseur.strategie.Strategie;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;

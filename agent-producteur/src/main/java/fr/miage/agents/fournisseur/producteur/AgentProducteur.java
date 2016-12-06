@@ -1,4 +1,4 @@
-package fr.miage.agents.fourniseur.producteur; /**
+package fr.miage.agents.fournisseur.producteur; /**
  * Created by Arthur on 31/10/2016.
  */
 

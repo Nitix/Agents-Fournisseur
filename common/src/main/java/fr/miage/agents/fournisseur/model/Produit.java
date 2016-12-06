@@ -3,7 +3,7 @@ package fr.miage.agents.fournisseur.model;
  * Created by Alexandre on 06/11/2016.
  */
 
-import fr.miage.agents.util.HibernateUtil;
+import fr.miage.agents.fournisseur.util.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.criterion.Order;

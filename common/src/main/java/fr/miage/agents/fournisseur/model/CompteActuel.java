@@ -1,6 +1,6 @@
 package fr.miage.agents.fournisseur.model;
 
-import fr.miage.agents.util.HibernateUtil;
+import fr.miage.agents.fournisseur.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

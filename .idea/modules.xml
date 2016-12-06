@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Agents-Fournisseur.iml" filepath="$PROJECT_DIR$/Agents-Fournisseur.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Core App.iml" filepath="$PROJECT_DIR$/Core App.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-fournisseur/agent-fournisseur.iml" filepath="$PROJECT_DIR$/agent-fournisseur/agent-fournisseur.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-magasinier/agent-magasinier.iml" filepath="$PROJECT_DIR$/agent-magasinier/agent-magasinier.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-producteur/agent-producteur.iml" filepath="$PROJECT_DIR$/agent-producteur/agent-producteur.iml" />

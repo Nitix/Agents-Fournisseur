@@ -1,4 +1,4 @@
-package fr.miage.agents.util;
+package fr.miage.agents.fournisseur.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

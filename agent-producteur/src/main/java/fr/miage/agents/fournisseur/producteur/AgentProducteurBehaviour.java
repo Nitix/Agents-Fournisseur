@@ -1,8 +1,8 @@
-package fr.miage.agents.fourniseur.producteur;
+package fr.miage.agents.fournisseur.producteur;
 
 import fr.miage.agents.api.message.production.Production;
 import fr.miage.agents.fournisseur.model.Produit;
-import fr.miage.agents.util.HibernateUtil;
+import fr.miage.agents.fournisseur.util.HibernateUtil;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;

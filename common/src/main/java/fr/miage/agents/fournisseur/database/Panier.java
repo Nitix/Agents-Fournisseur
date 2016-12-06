@@ -1,4 +1,4 @@
-package fr.miage.agents.database;
+package fr.miage.agents.fournisseur.database;
 
 /**
  * Created by Arthur on 05/12/2016.

@@ -2,7 +2,6 @@ package fr.miage.agents.fournisseur.magasinier;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
-import fr.miage.agents.database.Panier;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -10,7 +9,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.UUID;
 
 import static java.lang.Thread.sleep;

@@ -1,4 +1,4 @@
-package fr.miage.agents.database;
+package fr.miage.agents.fournisseur.database;
 
 import jade.core.Agent;
 
