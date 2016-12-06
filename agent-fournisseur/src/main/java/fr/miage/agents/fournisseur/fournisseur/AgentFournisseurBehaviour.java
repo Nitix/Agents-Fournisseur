@@ -144,5 +144,6 @@ public class AgentFournisseurBehaviour extends Behaviour {
 
     private void executerAchat(Panier panier){
         recettes += panier.getPrix()*panier.getQuantite();
+        System.out.println("Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !");
     }
 }

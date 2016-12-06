@@ -49,7 +49,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
                 switch (m.type){
                     case ResultatInitiationAchat:
                         ResultatInitiationAchat achat = (ResultatInitiationAchat) msg.getContentObject();
-                        Message negociation = traitementResultatInitierAchat(achat) ;
+                        Message negociation = traitementResultatInitierAchat(achat);
                         ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
                         msgNegociation.addReceiver(new AID("michel", AID.ISLOCALNAME));
                         try {
@@ -62,7 +62,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
                         break;
                     case ResultatNegociation:
                         ResultatNegociation resNego = (ResultatNegociation) msg.getContentObject();
-                        Message reponseNego = traitementResultatNegociation(resNego) ;//traitementResultatInitierAchat(achat);
+                        Message reponseNego = traitementResultatNegociation(resNego);
                         ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
                         msgReponseNego.addReceiver(new AID("michel", AID.ISLOCALNAME));
                         try {
@@ -103,10 +103,9 @@ public class AgentMagasinierBehaviour extends Behaviour {
         return new NegocierPrix();
     }
 
-    private Message traitementResultatNegociation(ResultatInitiationAchat ria){
+    private Message traitementResultatNegociation(ResultatNegociation ria){
         //TO DO
         //Renvois soit une autre négociation, soit une finalisation achat
-
-        
+        return null;
     }
 }
