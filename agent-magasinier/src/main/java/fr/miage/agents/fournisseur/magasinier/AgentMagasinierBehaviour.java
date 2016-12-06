@@ -108,7 +108,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
         else{
             NegocierPrix nego = new NegocierPrix();
             nego.session = ria.session;
-            nego.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
+            nego.prixDemande = (float) (ria.prixFixe+(ria.prixFixe*0.2));
             nego.quantiteDemande = ria.quantiteDisponible;
             return nego;
         }
