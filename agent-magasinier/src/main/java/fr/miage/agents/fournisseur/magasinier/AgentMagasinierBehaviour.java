@@ -1,7 +1,8 @@
 package fr.miage.agents.fournisseur.magasinier;
 
 import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.negociation.InitierAchat;
+import fr.miage.agents.api.message.TypeMessage;
+import fr.miage.agents.api.message.negociation.*;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -32,8 +33,8 @@ public class AgentMagasinierBehaviour extends Behaviour {
             try {
                 InitierAchat achat = new InitierAchat();
                 achat.session = UUID.randomUUID();
-                achat.idProduit = 1;
-                achat.quantite = 3;
+                achat.idProduit = (int) (Math.random()*149);
+                achat.quantite = (int) (Math.random()*200);
                 msg.setContentObject(achat);
                 System.out.println("Magasinier : 'j'envois un message !' ");
             } catch (IOException e) {
@@ -43,11 +44,43 @@ public class AgentMagasinierBehaviour extends Behaviour {
 
             ACLMessage messageReception = myAgent.blockingReceive(mt);
             try {
-
-                //Switch le type de message reçu
-
                 Message m = (Message) messageReception.getContentObject();
                 System.out.println("Magasinier : 'Message reçu' : " + m.type);
+                switch (m.type){
+                    case ResultatInitiationAchat:
+                        ResultatInitiationAchat achat = (ResultatInitiationAchat) msg.getContentObject();
+                        Message negociation = traitementResultatInitierAchat(achat) ;
+                        ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
+                        msgNegociation.addReceiver(new AID("michel", AID.ISLOCALNAME));
+                        try {
+                            msgNegociation.setContentObject(negociation);
+                            myAgent.send(msgNegociation);
+                            System.out.println("Magasinier : 'J'envois une réponse !'");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ResultatNegociation:
+                        ResultatNegociation resNego = (ResultatNegociation) msg.getContentObject();
+                        Message reponseNego = traitementResultatNegociation(resNego) ;//traitementResultatInitierAchat(achat);
+                        ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
+                        msgReponseNego.addReceiver(new AID("michel", AID.ISLOCALNAME));
+                        try {
+                            msgReponseNego.setContentObject(reponseNego);
+                            myAgent.send(msgReponseNego);
+                            System.out.println("Magasinier : 'J'envois une réponse !'");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ResultatAnnulationAchat:
+                        System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");
+                        break;
+                    case ResultatFinalisationAchat:
+                        System.out.println("Magasinier : 'Parfait ! Le fournisseur m'informe que l'achat s'est bien effectué.'");
+                        break;
+                }
+
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }
@@ -63,5 +96,17 @@ public class AgentMagasinierBehaviour extends Behaviour {
     @Override
     public boolean done() {
         return false;
+    }
+
+    private NegocierPrix traitementResultatInitierAchat(ResultatInitiationAchat ria){
+        //TO DO
+        return new NegocierPrix();
+    }
+
+    private Message traitementResultatNegociation(ResultatInitiationAchat ria){
+        //TO DO
+        //Renvois soit une autre négociation, soit une finalisation achat
+
+        
     }
 }
