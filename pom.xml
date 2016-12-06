@@ -76,5 +76,6 @@
         <module>common</module>
         <module>agent-magasinier</module>
         <module>agent-producteur</module>
+        <module>agent-fournisseur</module>
     </modules>
 </project>

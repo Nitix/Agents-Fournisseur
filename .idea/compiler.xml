@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Agent Magasinier" />
         <module name="Agent Producteur" />
+        <module name="agent-fournisseur" />
         <module name="agent-magasinier" />
         <module name="agent-producteur" />
         <module name="api" />
@@ -18,6 +19,7 @@
     <bytecodeTargetLevel>
       <module name="Agent Magasinier" target="1.5" />
       <module name="Agent Producteur" target="1.5" />
+      <module name="agent-fournisseur" target="1.8" />
       <module name="agent-magasinier" target="1.8" />
       <module name="agent-producteur" target="1.8" />
       <module name="Agents-Fournisseur" target="1.8" />
