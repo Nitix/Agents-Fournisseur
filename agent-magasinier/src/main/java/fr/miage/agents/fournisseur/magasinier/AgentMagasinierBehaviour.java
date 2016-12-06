@@ -51,26 +51,14 @@ public class AgentMagasinierBehaviour extends Behaviour {
                         Message negociation = traitementResultatInitierAchat(achat);
                         ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
                         msgNegociation.addReceiver(new AID("michel", AID.ISLOCALNAME));
-                        try {
-                            msgNegociation.setContentObject(negociation);
-                            myAgent.send(msgNegociation);
-                            System.out.println("Magasinier : 'J'envois une réponse !'");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        sendMessageForNegociation(negociation, msgNegociation);
                         break;
                     case ResultatNegociation:
                         ResultatNegociation resNego = (ResultatNegociation) msg.getContentObject();
                         Message reponseNego = traitementResultatNegociation(resNego);
                         ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
                         msgReponseNego.addReceiver(new AID("michel", AID.ISLOCALNAME));
-                        try {
-                            msgReponseNego.setContentObject(reponseNego);
-                            myAgent.send(msgReponseNego);
-                            System.out.println("Magasinier : 'J'envois une réponse !'");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        sendMessageForNegociation(reponseNego, msgReponseNego);
                         break;
                     case ResultatAnnulationAchat:
                         System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");
@@ -131,6 +119,16 @@ public class AgentMagasinierBehaviour extends Behaviour {
             renegociation.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
             renegociation.quantiteDemande = ria.quantiteDisponible;
             return renegociation;
+        }
+    }
+
+    private void sendMessageForNegociation(Message negociation, ACLMessage msgNegociation) {
+        try {
+            msgNegociation.setContentObject(negociation);
+            myAgent.send(msgNegociation);
+            System.out.println("Magasinier : 'J'envois une réponse !'");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
