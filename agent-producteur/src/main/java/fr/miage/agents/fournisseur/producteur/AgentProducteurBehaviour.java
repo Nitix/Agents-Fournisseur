@@ -29,7 +29,7 @@ public class AgentProducteurBehaviour extends Behaviour {
             Production production = produireAleatoirement();
 
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.addReceiver(new AID("jean", AID.ISLOCALNAME));
+            msg.addReceiver(new AID("database", AID.ISLOCALNAME));
 
             try {
                 msg.setContentObject(production);
@@ -51,12 +51,8 @@ public class AgentProducteurBehaviour extends Behaviour {
         Production production = new Production();
         Produit produit = (Produit) query.uniqueResult();
         int quantiteAdd = ThreadLocalRandom.current().nextInt(10, 100);
-        production.id = id;
-        production.marqueProduit = produit.getMarqueProduit();
-        production.quantiteProduit = produit.getQuantiteProduit();
-        production.nomProduit = produit.getNomProduit();
-        production.newQuantiteProduit = produit.getQuantiteProduit()+quantiteAdd;
-        Produit.addQuantity(produit.getNomProduit(), produit.getMarqueProduit(), quantiteAdd  );
+        production.idProduit = id;
+        production.quantiteProduite = quantiteAdd;
         return production;
     }
 

@@ -168,19 +168,18 @@ public class Produit {
         }
     }
 
-    public static void addQuantity(String nom, String marque, int quantite)
+    public static void addQuantity(long id, int quantite)
     {
-        Query query= HibernateUtil.openSession().
-                createQuery("from Produit where nomProduit=:name and marqueProduit=:marque");
-        query.setParameter("name", nom);
-        query.setParameter("marque", marque);
-        Produit produit = (Produit) query.uniqueResult();
-        produit.setQuantiteProduit(produit.getQuantiteProduit() + quantite);
         Session session = HibernateUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Produit produit = (Produit) session.get(Produit.class, id);
+        produit.setQuantiteProduit(produit.getQuantiteProduit() + quantite);
         try{
-            session.persist(produit);
+            session.saveOrUpdate(produit);
+            tx.commit();
         }catch (Exception e){
-
+            tx.rollback();
+            e.printStackTrace();
         }finally {
             session.close();
         }

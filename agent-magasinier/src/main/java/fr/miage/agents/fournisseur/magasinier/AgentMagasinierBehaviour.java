@@ -28,7 +28,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
     public void action() {
         while(true) {
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.addReceiver(new AID("michel", AID.ISLOCALNAME));
+            msg.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
             try {
                 InitierAchat achat = new InitierAchat();
                 achat.session = UUID.randomUUID();
@@ -47,17 +47,17 @@ public class AgentMagasinierBehaviour extends Behaviour {
                 System.out.println("Magasinier : 'Message reçu' : " + m.type);
                 switch (m.type){
                     case ResultatInitiationAchat:
-                        ResultatInitiationAchat achat = (ResultatInitiationAchat) msg.getContentObject();
+                        ResultatInitiationAchat achat = (ResultatInitiationAchat) m;
                         Message negociation = traitementResultatInitierAchat(achat);
                         ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
-                        msgNegociation.addReceiver(new AID("michel", AID.ISLOCALNAME));
+                        msgNegociation.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
                         sendMessageForNegociation(negociation, msgNegociation);
                         break;
                     case ResultatNegociation:
-                        ResultatNegociation resNego = (ResultatNegociation) msg.getContentObject();
+                        ResultatNegociation resNego = (ResultatNegociation) m;
                         Message reponseNego = traitementResultatNegociation(resNego);
                         ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
-                        msgReponseNego.addReceiver(new AID("michel", AID.ISLOCALNAME));
+                        msgReponseNego.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
                         sendMessageForNegociation(reponseNego, msgReponseNego);
                         break;
                     case ResultatAnnulationAchat:

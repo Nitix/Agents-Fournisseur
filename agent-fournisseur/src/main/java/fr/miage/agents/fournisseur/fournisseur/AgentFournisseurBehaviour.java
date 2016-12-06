@@ -37,10 +37,9 @@ public class AgentFournisseurBehaviour extends Behaviour {
             System.out.println("Fournisseur : 'Message reçu !' : "+m.type);
             switch (m.type){
                 case InitierAchat:
-                    InitierAchat achat = (InitierAchat) msg.getContentObject();
+                    InitierAchat achat = (InitierAchat) m;
                     Message resultatInitiationAchat = traitementInitierAchat(achat);
-                    ACLMessage msgResponseInitiationAchat = new ACLMessage(ACLMessage.INFORM);
-                    msgResponseInitiationAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
+                    ACLMessage msgResponseInitiationAchat = msg.createReply();
                     try {
                         msgResponseInitiationAchat.setContentObject(resultatInitiationAchat);
                         myAgent.send(msgResponseInitiationAchat);
@@ -50,10 +49,9 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     }
                     break;
                 case NegocierPrix:
-                    NegocierPrix nego = (NegocierPrix) msg.getContentObject();
+                    NegocierPrix nego = (NegocierPrix) m;
                     Message reponseNego = traitementNegociation(nego);
-                    ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
-                    msgReponseNego.addReceiver(new AID("jean", AID.ISLOCALNAME));
+                    ACLMessage msgReponseNego = msg.createReply();
                     try {
                         msgReponseNego.setContentObject(reponseNego);
                         myAgent.send(msgReponseNego);
@@ -62,10 +60,9 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     }
                     break;
                 case FinaliserAchat:
-                    FinaliserAchat fa = (FinaliserAchat) msg.getContentObject();
+                    FinaliserAchat fa = (FinaliserAchat) m;
                     Message reponseFinalisationAchat = traitementFinalisationAchat(fa);
-                    ACLMessage msgReponseFinalisationAchat = new ACLMessage(ACLMessage.INFORM);
-                    msgReponseFinalisationAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
+                    ACLMessage msgReponseFinalisationAchat = msg.createReply();
                     try {
                         msgReponseFinalisationAchat.setContentObject(reponseFinalisationAchat);
                         myAgent.send(msgReponseFinalisationAchat);
@@ -74,10 +71,9 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     }
                     break;
                 case AnnulerAchat:
-                    AnnulerAchat aa = (AnnulerAchat) msg.getContentObject();
+                    AnnulerAchat aa = (AnnulerAchat) m;
                     Message reponseAnnulerAchat = traitementAnnulationAchat(aa);
-                    ACLMessage msgReponseAnnulerAchat = new ACLMessage(ACLMessage.INFORM);
-                    msgReponseAnnulerAchat.addReceiver(new AID("jean", AID.ISLOCALNAME));
+                    ACLMessage msgReponseAnnulerAchat = msg.createReply();
                     try {
                         myAgent.send(msgReponseAnnulerAchat);
                         msgReponseAnnulerAchat.setContentObject(reponseAnnulerAchat);

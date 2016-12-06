@@ -7,6 +7,8 @@
       <Visible>1</Visible>
     </database>
     <schema id="3" parent="2" name="INFORMATION_SCHEMA"/>
-    <schema id="4" parent="2" name="PUBLIC"/>
+    <schema id="4" parent="2" name="PUBLIC">
+      <Visible>1</Visible>
+    </schema>
   </database-model>
 </dataSource>
