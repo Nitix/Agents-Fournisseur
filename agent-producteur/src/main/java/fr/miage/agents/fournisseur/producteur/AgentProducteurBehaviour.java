@@ -38,13 +38,7 @@ public class AgentProducteurBehaviour extends Behaviour {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-            try {
-                wait(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            myAgent.doWait(5000);
         }
     }
 
