@@ -2,7 +2,6 @@ package fr.miage.agents.fournisseur.magasinier;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
-import fr.miage.agents.database.Panier;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -10,7 +9,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.UUID;
 
 import static java.lang.Thread.sleep;
@@ -53,26 +51,14 @@ public class AgentMagasinierBehaviour extends Behaviour {
                         Message negociation = traitementResultatInitierAchat(achat);
                         ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
                         msgNegociation.addReceiver(new AID("michel", AID.ISLOCALNAME));
-                        try {
-                            msgNegociation.setContentObject(negociation);
-                            myAgent.send(msgNegociation);
-                            System.out.println("Magasinier : 'J'envois une réponse !'");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        sendMessageForNegociation(negociation, msgNegociation);
                         break;
                     case ResultatNegociation:
                         ResultatNegociation resNego = (ResultatNegociation) msg.getContentObject();
                         Message reponseNego = traitementResultatNegociation(resNego);
                         ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
                         msgReponseNego.addReceiver(new AID("michel", AID.ISLOCALNAME));
-                        try {
-                            msgReponseNego.setContentObject(reponseNego);
-                            myAgent.send(msgReponseNego);
-                            System.out.println("Magasinier : 'J'envois une réponse !'");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        sendMessageForNegociation(reponseNego, msgReponseNego);
                         break;
                     case ResultatAnnulationAchat:
                         System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");
@@ -133,6 +119,16 @@ public class AgentMagasinierBehaviour extends Behaviour {
             renegociation.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
             renegociation.quantiteDemande = ria.quantiteDisponible;
             return renegociation;
+        }
+    }
+
+    private void sendMessageForNegociation(Message negociation, ACLMessage msgNegociation) {
+        try {
+            msgNegociation.setContentObject(negociation);
+            myAgent.send(msgNegociation);
+            System.out.println("Magasinier : 'J'envois une réponse !'");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
