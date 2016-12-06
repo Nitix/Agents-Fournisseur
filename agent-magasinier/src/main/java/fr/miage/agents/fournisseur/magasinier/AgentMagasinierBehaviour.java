@@ -1,8 +1,8 @@
 package fr.miage.agents.fournisseur.magasinier;
 
 import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.negociation.*;
+import fr.miage.agents.database.Panier;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -10,6 +10,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 import static java.lang.Thread.sleep;
@@ -98,14 +99,40 @@ public class AgentMagasinierBehaviour extends Behaviour {
         return false;
     }
 
-    private NegocierPrix traitementResultatInitierAchat(ResultatInitiationAchat ria){
-        //TO DO
-        return new NegocierPrix();
+    private Message traitementResultatInitierAchat(ResultatInitiationAchat ria){
+        if(ria.success){
+            FinaliserAchat fa = new FinaliserAchat();
+            fa.session = ria.session;
+            return fa;
+        }
+        else{
+            NegocierPrix nego = new NegocierPrix();
+            nego.session = ria.session;
+            nego.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
+            nego.quantiteDemande = ria.quantiteDisponible;
+            return nego;
+        }
     }
 
     private Message traitementResultatNegociation(ResultatNegociation ria){
-        //TO DO
-        //Renvois soit une autre négociation, soit une finalisation achat
-        return null;
+        int random = (int) (Math.random()*100);
+
+        if(random <= 15 ){
+            AnnulerAchat annule = new AnnulerAchat();
+            annule.session = ria.session;
+            return annule;
+        }
+        else if((random > 15)||(random <= 55)){
+            FinaliserAchat fa = new FinaliserAchat();
+            fa.session = ria.session;
+            return fa;
+        }
+        else{
+            NegocierPrix renegociation = new NegocierPrix();
+            renegociation.session = ria.session;
+            renegociation.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
+            renegociation.quantiteDemande = ria.quantiteDisponible;
+            return renegociation;
+        }
     }
 }
