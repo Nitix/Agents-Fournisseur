@@ -6,6 +6,7 @@ package fr.miage.agents.fournisseur.model;
 import fr.miage.agents.util.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -183,6 +184,27 @@ public class Produit {
         }finally {
             session.close();
         }
+    }
+
+    public static long getMaxIdProduit(){
+        Transaction tx = null;
+        Integer produitID = null;
+        Session session = HibernateUtil.openSession();
+        try{
+            tx = session.beginTransaction();
+            Produit produit =
+                    (Produit) session.createCriteria(Produit.class)
+                            .addOrder(Order.desc("id"))
+                            .setMaxResults(1)
+                            .uniqueResult();
+            return produit.id;
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return 0;
     }
 
 
