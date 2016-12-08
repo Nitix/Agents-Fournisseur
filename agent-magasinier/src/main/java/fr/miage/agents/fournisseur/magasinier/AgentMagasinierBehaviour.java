@@ -59,6 +59,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
                         ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
                         msgReponseNego.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
                         sendMessageForNegociation(reponseNego, msgReponseNego);
+                        System.out.println("Magasinier : 'J'envois un message de négociation.'");
                         break;
                     case ResultatAnnulationAchat:
                         System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");

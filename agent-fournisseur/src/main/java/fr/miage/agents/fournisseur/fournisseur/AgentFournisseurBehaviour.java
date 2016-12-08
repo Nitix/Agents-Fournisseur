@@ -55,6 +55,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     try {
                         msgReponseNego.setContentObject(reponseNego);
                         myAgent.send(msgReponseNego);
+                        System.out.println("Fournisseur : 'J'envois une réponse !'");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -66,6 +67,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     try {
                         msgReponseFinalisationAchat.setContentObject(reponseFinalisationAchat);
                         myAgent.send(msgReponseFinalisationAchat);
+                        System.out.println("Fournisseur : 'J'envois une réponse !'");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -76,6 +78,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     ACLMessage msgReponseAnnulerAchat = msg.createReply();
                     try {
                         myAgent.send(msgReponseAnnulerAchat);
+                        System.out.println("Fournisseur : 'J'envois une réponse !'");
                         msgReponseAnnulerAchat.setContentObject(reponseAnnulerAchat);
                     } catch (IOException e) {
                         e.printStackTrace();

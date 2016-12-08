@@ -3,16 +3,8 @@ package fr.miage.agents.fournisseur.magasinier;
 /**
  * Created by Arthur on 31/10/2016.
  */
-import fr.miage.agents.api.message.Message;
-import fr.miage.agents.api.message.negociation.InitierAchat;
-import jade.core.AID;
-import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
 
-import java.io.IOException;
-import java.util.UUID;
+import jade.core.Agent;
 
 public class AgentMagasinier extends Agent{
 
