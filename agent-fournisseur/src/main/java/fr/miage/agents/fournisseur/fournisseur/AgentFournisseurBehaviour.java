@@ -2,9 +2,8 @@ package fr.miage.agents.fournisseur.fournisseur;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
-import fr.miage.agents.fournisseur.database.Panier;
+import fr.miage.agents.fournisseur.model.Panier;
 import fr.miage.agents.fournisseur.strategie.Strategie;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -129,12 +128,14 @@ public class AgentFournisseurBehaviour extends Behaviour {
 
     public ResultatInitiationAchat traitementInitierAchat(InitierAchat achat){
         ResultatInitiationAchat ria = new ResultatInitiationAchat();
-        Panier p = new Panier(achat.idProduit, achat.quantite);
-        sessionPanier.put(achat.session, p);
+
         ria.session = achat.session;
         ria.success = true;
         ria.quantiteDisponible = Strategie.getQuantiteDispoDemande(achat.idProduit, achat.quantite);
         ria.prixFixe = Strategie.venteProduit(achat.idProduit, ria.quantiteDisponible);
+        System.out.println("PRIX FIXE : "+ria.prixFixe);
+        Panier p = new Panier(achat.idProduit, achat.quantite, ria.prixFixe);
+        sessionPanier.put(achat.session, p);
         return ria;
     }
 
@@ -143,7 +144,8 @@ public class AgentFournisseurBehaviour extends Behaviour {
     }
 
     private void executerAchat(Panier panier){
+        System.out.println("Panier prix : "+panier.getPrix()+" / Panier qte : "+panier.getQuantite());
         recettes += panier.getPrix()*panier.getQuantite();
-        System.out.println("Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !");
+        System.out.println("Fournisseur : 'Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !'");
     }
 }
