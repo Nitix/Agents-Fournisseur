@@ -37,9 +37,9 @@ public class AgentDatabaseBehaviour extends Behaviour {
                     Produit produit = (Produit) query.uniqueResult();
                     float price = produit.getPrixProduit()*prod.quantiteProduite;
                     Query queryCompte= HibernateUtil.openSession().createQuery("from CompteActuel where id=:id ");
-                    queryCompte.setParameter("id", 1);
-                    CompteActuel compte = (CompteActuel) query.uniqueResult();
-                    compte.addSolde(- price, (long) 1);
+                    queryCompte.setParameter("id", 1L);
+                    CompteActuel compte = (CompteActuel) queryCompte.uniqueResult();
+                    compte.addSolde(- price, 1L);
                     break;
             }
         } catch (UnreadableException e) {

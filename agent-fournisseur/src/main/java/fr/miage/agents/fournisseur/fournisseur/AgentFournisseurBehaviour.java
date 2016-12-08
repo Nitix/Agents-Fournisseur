@@ -3,6 +3,7 @@ package fr.miage.agents.fournisseur.fournisseur;
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
 import fr.miage.agents.fournisseur.model.Panier;
+import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.fournisseur.strategie.Strategie;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -154,6 +155,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
     private void executerAchat(Panier panier){
         System.out.println("Panier prix : "+panier.getPrix()+" / Panier qte : "+panier.getQuantite());
         recettes += panier.getPrix()*panier.getQuantite();
+        Produit.addQuantity(panier.getIdProduit(), -panier.getQuantite());
         System.out.println("Fournisseur : 'Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !'");
     }
 }
