@@ -47,5 +47,10 @@
     <orderEntry type="library" name="Maven: org.jboss:jandex:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.10" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.193" level="project" />
+    <orderEntry type="module" module-name="agent-fournisseur" />
+    <orderEntry type="module" module-name="agent-magasinier" />
+    <orderEntry type="module" module-name="agent-producteur" />
+    <orderEntry type="module" module-name="api" />
+    <orderEntry type="module" module-name="common" />
   </component>
 </module>
