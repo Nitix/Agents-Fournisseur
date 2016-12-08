@@ -156,3 +156,5 @@ INSERT INTO produit (nomProduit, marqueProduit, descriptionProduit, prixProduit,
 ('Radio','Sony','Capter toutes vos radios préférées',21.30,6),
 ('Ecran PC','Phillips','Ecran 15 pouces LED',59.80,6),
 ('Montre connectée','Apple','Montre connectée répondant à tous vos besoins',177.60,6);
+
+INSERT INTO CompteActuel(sommeActuelle) VALUES(0.0);

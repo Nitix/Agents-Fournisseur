@@ -46,7 +46,7 @@ public class CompteActuel {
         return compteID;
     }
 
-    public void updateCompte(float nombre, Long idCompteActuelle) {
+    public void addSolde(float nombre, Long idCompteActuelle) {
         Transaction tx = null;
         Session session = HibernateUtil.openSession();
         try {
@@ -63,7 +63,7 @@ public class CompteActuel {
         }
     }
 
-    public float getNombreCompte(Long idCompteActuelle) {
+    public float getSoldeCompte(Long idCompteActuelle) {
         Transaction tx = null;
         Session session = HibernateUtil.openSession();
         try {
