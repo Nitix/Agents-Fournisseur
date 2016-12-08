@@ -1,6 +1,7 @@
 package fr.miage.agents.fournisseur.producteur;
 
 import fr.miage.agents.api.message.production.Production;
+import fr.miage.agents.fournisseur.fournisseur.AgentFournisseurBehaviour;
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.fournisseur.util.HibernateUtil;
 import jade.core.AID;
@@ -33,7 +34,7 @@ public class AgentProducteurBehaviour extends Behaviour {
 
             try {
                 msg.setContentObject(production);
-                System.out.println("Producteur : 'j'envois un message !' ");
+                System.out.println("Producteur : ' Je viens de produire pour le fournisseur !' ");
                 myAgent.send(msg);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -45,8 +46,7 @@ public class AgentProducteurBehaviour extends Behaviour {
     private Production produireAleatoirement(){
         long idMax = Produit.getMaxIdProduit();
         long id = ThreadLocalRandom.current().nextInt(1, (int) idMax + 1);
-        Query query= HibernateUtil.openSession().
-                createQuery("from Produit where id=:id ");
+        Query query= HibernateUtil.openSession().createQuery("from Produit where id=:id ");
         query.setParameter("id", idMax);
         Production production = new Production();
         Produit produit = (Produit) query.uniqueResult();

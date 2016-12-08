@@ -23,10 +23,18 @@ public class AgentFournisseurBehaviour extends Behaviour {
     private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
     HashMap<UUID, Panier> sessionPanier = new HashMap<>();
-    private float recettes = 0;
+    private static float recettes = 0;
 
     public AgentFournisseurBehaviour(AgentFournisseur agentFournisseur) {
         this.myAgent = agentFournisseur;
+    }
+
+    public static float getRecettes() {
+        return recettes;
+    }
+
+    public static void substractRecette(float prixProduction) {
+        recettes -= prixProduction;
     }
 
     public void action() {

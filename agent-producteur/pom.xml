@@ -19,6 +19,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.3.11.Final</version>
         </dependency>
+        <dependency>
+            <groupId>fr.miage.agents.fournisseur</groupId>
+            <artifactId>agent-fournisseur</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <parent>
