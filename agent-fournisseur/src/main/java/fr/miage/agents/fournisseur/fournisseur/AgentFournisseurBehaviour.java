@@ -2,14 +2,17 @@ package fr.miage.agents.fournisseur.fournisseur;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
+import fr.miage.agents.fournisseur.model.CompteActuel;
 import fr.miage.agents.fournisseur.model.Panier;
 import fr.miage.agents.fournisseur.model.Produit;
 import fr.miage.agents.fournisseur.strategie.Strategie;
+import fr.miage.agents.fournisseur.util.HibernateUtil;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.hibernate.Query;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -154,7 +157,11 @@ public class AgentFournisseurBehaviour extends Behaviour {
 
     private void executerAchat(Panier panier){
         System.out.println("Panier prix : "+panier.getPrix()+" / Panier qte : "+panier.getQuantite());
-        recettes += panier.getPrix()*panier.getQuantite();
+        Query queryCompte= HibernateUtil.openSession().createQuery("from CompteActuel where id=:id ");
+        queryCompte.setParameter("id", 1L);
+        CompteActuel compte = (CompteActuel) queryCompte.uniqueResult();
+        compte.addSolde( panier.getPrix()*panier.getQuantite(), 1L);
+        recettes = compte.getSoldeCompte(1L);
         Produit.addQuantity(panier.getIdProduit(), -panier.getQuantite());
         System.out.println("Fournisseur : 'Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !'");
     }
