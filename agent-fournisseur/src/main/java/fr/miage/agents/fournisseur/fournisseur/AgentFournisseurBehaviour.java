@@ -2,6 +2,7 @@ package fr.miage.agents.fournisseur.fournisseur;
 
 import fr.miage.agents.api.message.Message;
 import fr.miage.agents.api.message.negociation.*;
+import fr.miage.agents.api.message.production.Production;
 import fr.miage.agents.fournisseur.model.CompteActuel;
 import fr.miage.agents.fournisseur.model.Panier;
 import fr.miage.agents.fournisseur.model.Produit;
@@ -95,6 +96,12 @@ public class AgentFournisseurBehaviour extends Behaviour {
                         e.printStackTrace();
                     }
                     break;
+                case Production:
+                    Production prod = (Production) m;
+                    if(msg.getSender().getLocalName().equals("producteur")) {
+                        this.traiterProduction(prod);
+                    }
+                    break;
             }
         } catch (UnreadableException e) {
             e.printStackTrace();
@@ -164,5 +171,19 @@ public class AgentFournisseurBehaviour extends Behaviour {
         recettes = compte.getSoldeCompte(1L);
         Produit.addQuantity(panier.getIdProduit(), -panier.getQuantite());
         System.out.println("Fournisseur : 'Parfait ! L'achat s'est correctement finalisé, j'ai maintenant "+recettes+"€ de recettes !'");
+    }
+
+    private void traiterProduction(Production prod) {
+        Produit.addQuantity(prod.idProduit, prod.quantiteProduite);
+        Query query = HibernateUtil.openSession().createQuery("from Produit where id=:id ");
+        query.setParameter("id", prod.idProduit);
+        Produit produit = (Produit) query.uniqueResult();
+        float price = produit.getPrixProduit() * prod.quantiteProduite;
+        Query queryCompte = HibernateUtil.openSession().createQuery("from CompteActuel where id=:id ");
+        queryCompte.setParameter("id", 1L);
+        CompteActuel compte = (CompteActuel) queryCompte.uniqueResult();
+        compte.addSolde(-price, 1L);
+        recettes = compte.getSoldeCompte(1L);
+        System.out.println("Fournisseur : 'Parfait ! On s'est fait ravitaillé notre solde est de "+recettes+"€ !'");
     }
 }

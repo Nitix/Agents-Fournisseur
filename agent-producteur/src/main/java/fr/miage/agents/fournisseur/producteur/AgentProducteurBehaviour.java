@@ -29,7 +29,7 @@ public class AgentProducteurBehaviour extends Behaviour {
             Production production = produireAleatoirement();
 
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.addReceiver(new AID("database", AID.ISLOCALNAME));
+            msg.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
 
             try {
                 msg.setContentObject(production);
