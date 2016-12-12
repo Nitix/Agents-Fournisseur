@@ -180,6 +180,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
 
     private ResultatNegociation traitementNegociation(NegocierPrix nego) {
         ResultatNegociation rn = new ResultatNegociation();
+        rn.session = nego.session;
         Panier p = sessionPanier.get(nego.session);
         float prixCalcule = Strategie.venteProduit(p.getIdProduit(),nego.quantiteDemande);
 

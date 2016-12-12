@@ -87,18 +87,12 @@ public class AgentMagasinierBehaviour extends Behaviour {
     }
 
     private Message traitementResultatInitierAchat(ResultatInitiationAchat ria){
-        if(ria.success){
-            FinaliserAchat fa = new FinaliserAchat();
-            fa.session = ria.session;
-            return fa;
-        }
-        else{
             NegocierPrix nego = new NegocierPrix();
             nego.session = ria.session;
-            nego.prixDemande = (float) (ria.prixFixe+(ria.prixFixe*0.2));
+            nego.prixDemande = (float) (ria.prixFixe-(ria.prixFixe*0.2));
             nego.quantiteDemande = ria.quantiteDisponible;
             return nego;
-        }
+
     }
 
     private Message traitementResultatNegociation(ResultatNegociation ria){
@@ -117,7 +111,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
         else{
             NegocierPrix renegociation = new NegocierPrix();
             renegociation.session = ria.session;
-            renegociation.prixDemande = (float) (ria.prixNegocie+(ria.prixNegocie*0.2));
+            renegociation.prixDemande = (float) (ria.prixNegocie-(ria.prixNegocie*0.2));
             renegociation.quantiteDemande = ria.quantiteDisponible;
             return renegociation;
         }
