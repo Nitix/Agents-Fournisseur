@@ -33,7 +33,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
                 InitierAchat achat = new InitierAchat();
                 achat.session = UUID.randomUUID();
                 achat.idProduit = (int) (1+ Math.random()*148);
-                achat.quantite = (int) (Math.random()*200);
+                achat.quantite = (int) (Math.random()*20);
                 msg.setContentObject(achat);
                 System.out.println("Magasinier : 'j'envois un message !' ");
             } catch (IOException e) {
