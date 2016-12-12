@@ -203,8 +203,8 @@ public class AgentFournisseurBehaviour extends Behaviour {
         ResultatInitiationAchat ria = new ResultatInitiationAchat();
 
         ria.session = achat.session;
-        ria.success = true;
         ria.quantiteDisponible = Strategie.getQuantiteDispoDemande(achat.idProduit, achat.quantite);
+        ria.success = ria.quantiteDisponible != 0;
         ria.prixFixe = Strategie.venteProduit(achat.idProduit, ria.quantiteDisponible);
         System.out.println("PRIX FIXE : "+ria.prixFixe);
         Panier p = new Panier(achat.idProduit, achat.quantite, ria.prixFixe);
