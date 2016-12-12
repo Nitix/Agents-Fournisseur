@@ -135,6 +135,7 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     resultatRecherche.Session = rechercher.session;
                     reply.setContentObject(resultatRecherche);
                     myAgent.send(reply);
+                    break;
                 case Aide:
                     ResultatAide ra = new ResultatAide();
                     ArrayList<TypeMessage> typeMessages = new ArrayList<>();
@@ -149,6 +150,12 @@ public class AgentFournisseurBehaviour extends Behaviour {
                     reply =  msg.createReply();
                     reply.setContentObject(ra);
                     myAgent.send(reply);
+                    break;
+                default:
+                    reply =  msg.createReply();
+                    reply.setContentObject(new AppelMethodeIncorrect());
+                    myAgent.send(reply);
+
             }
         } catch (UnreadableException | IOException e) {
             e.printStackTrace();
