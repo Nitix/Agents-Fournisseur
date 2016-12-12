@@ -1,8 +1,14 @@
 package fr.miage.agents.fournisseur.fournisseur;
 
 import fr.miage.agents.api.message.Message;
+import fr.miage.agents.api.message.TypeMessage;
 import fr.miage.agents.api.message.negociation.*;
 import fr.miage.agents.api.message.production.Production;
+import fr.miage.agents.api.message.recherche.Rechercher;
+import fr.miage.agents.api.message.recherche.ResultatRecherche;
+import fr.miage.agents.api.message.util.AppelMethodeIncorrect;
+import fr.miage.agents.api.message.util.ResultatAide;
+import fr.miage.agents.api.model.Categorie;
 import fr.miage.agents.fournisseur.model.CompteActuel;
 import fr.miage.agents.fournisseur.model.Panier;
 import fr.miage.agents.fournisseur.model.Produit;
@@ -16,8 +22,8 @@ import jade.lang.acl.UnreadableException;
 import org.hibernate.Query;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Arthur on 06/12/2016.
@@ -102,8 +108,49 @@ public class AgentFournisseurBehaviour extends Behaviour {
                         this.traiterProduction(prod);
                     }
                     break;
+                case DemanderSession:
+                    ACLMessage reply=  msg.createReply();
+                    reply.setContentObject(new AppelMethodeIncorrect());
+                    myAgent.send(reply);
+                    break;
+                case Recherche:
+                    Rechercher rechercher = (Rechercher) m;
+                    RechercheBuilder rb = new RechercheBuilder(rechercher);
+                    List<Produit> produits = rb.search();
+                    List<fr.miage.agents.api.model.Produit> apiProduit = produits.parallelStream().map(p -> {
+                        fr.miage.agents.api.model.Produit p2 = new fr.miage.agents.api.model.Produit();
+                        p2.descriptionProduit = p.getDescriptionProduit();
+                        Categorie c = new Categorie();
+                        c.idCategorie = p.getIdCategorie().getIdCategorie();
+                        c.nomCategorie = p.getIdCategorie().getNomCategorie();
+                        p2.idCategorie = c;
+                        p2.idProduit = p.getId();
+                        p2.marque = p.getMarqueProduit();
+                        p2.prixProduit = p.getPrixProduit() * 2;
+                        return p2;
+                    }).collect(Collectors.toList());
+                    reply =  msg.createReply();
+                    ResultatRecherche resultatRecherche = new ResultatRecherche();
+                    resultatRecherche.produitList = apiProduit;
+                    resultatRecherche.Session = rechercher.session;
+                    reply.setContentObject(resultatRecherche);
+                    myAgent.send(reply);
+                case Aide:
+                    ResultatAide ra = new ResultatAide();
+                    ArrayList<TypeMessage> typeMessages = new ArrayList<>();
+                    typeMessages.add(TypeMessage.Aide);
+                    typeMessages.add(TypeMessage.AnnulerAchat);
+                    typeMessages.add(TypeMessage.FinaliserAchat);
+                    typeMessages.add(TypeMessage.Recherche);
+                    typeMessages.add(TypeMessage.InitierAchat);
+                    typeMessages.add(TypeMessage.NegocierPrix);
+                    typeMessages.add(TypeMessage.Production);
+                    ra.supportedActions = typeMessages;
+                    reply =  msg.createReply();
+                    reply.setContentObject(ra);
+                    myAgent.send(reply);
             }
-        } catch (UnreadableException e) {
+        } catch (UnreadableException | IOException e) {
             e.printStackTrace();
         }
     }
