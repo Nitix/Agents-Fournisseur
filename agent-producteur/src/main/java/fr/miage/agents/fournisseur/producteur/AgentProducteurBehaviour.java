@@ -49,7 +49,7 @@ public class AgentProducteurBehaviour extends Behaviour {
         query.setParameter("id", idMax);
         Production production = new Production();
         Produit produit = (Produit) query.uniqueResult();
-        int quantiteAdd = ThreadLocalRandom.current().nextInt(10, 100);
+        int quantiteAdd = ThreadLocalRandom.current().nextInt(10, 20);
         production.idProduit = id;
         production.quantiteProduite = quantiteAdd;
         return production;

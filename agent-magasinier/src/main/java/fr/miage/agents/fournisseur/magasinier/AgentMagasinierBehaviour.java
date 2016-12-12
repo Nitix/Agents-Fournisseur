@@ -44,31 +44,32 @@ public class AgentMagasinierBehaviour extends Behaviour {
             ACLMessage messageReception = myAgent.blockingReceive(mt);
             try {
                 Message m = (Message) messageReception.getContentObject();
-                System.out.println("Magasinier : 'Message reçu' : " + m.type);
-                switch (m.type){
-                    case ResultatInitiationAchat:
-                        ResultatInitiationAchat achat = (ResultatInitiationAchat) m;
-                        Message negociation = traitementResultatInitierAchat(achat);
-                        ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
-                        msgNegociation.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
-                        sendMessageForNegociation(negociation, msgNegociation);
-                        break;
-                    case ResultatNegociation:
-                        ResultatNegociation resNego = (ResultatNegociation) m;
-                        Message reponseNego = traitementResultatNegociation(resNego);
-                        ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
-                        msgReponseNego.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
-                        sendMessageForNegociation(reponseNego, msgReponseNego);
-                        System.out.println("Magasinier : 'J'envois un message de négociation.'");
-                        break;
-                    case ResultatAnnulationAchat:
-                        System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");
-                        break;
-                    case ResultatFinalisationAchat:
-                        System.out.println("Magasinier : 'Parfait ! Le fournisseur m'informe que l'achat s'est bien effectué.'");
-                        break;
+                if(m != null) {
+                    System.out.println("Magasinier : 'Message reçu' : " + m.type);
+                    switch (m.type) {
+                        case ResultatInitiationAchat:
+                            ResultatInitiationAchat achat = (ResultatInitiationAchat) m;
+                            Message negociation = traitementResultatInitierAchat(achat);
+                            ACLMessage msgNegociation = new ACLMessage(ACLMessage.INFORM);
+                            msgNegociation.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
+                            sendMessageForNegociation(negociation, msgNegociation);
+                            break;
+                        case ResultatNegociation:
+                            ResultatNegociation resNego = (ResultatNegociation) m;
+                            Message reponseNego = traitementResultatNegociation(resNego);
+                            ACLMessage msgReponseNego = new ACLMessage(ACLMessage.INFORM);
+                            msgReponseNego.addReceiver(new AID("fournisseur", AID.ISLOCALNAME));
+                            sendMessageForNegociation(reponseNego, msgReponseNego);
+                            System.out.println("Magasinier : 'J'envois un message de négociation.'");
+                            break;
+                        case ResultatAnnulationAchat:
+                            System.out.println("Magasinier : 'Bien ! Le fournisseur m'informe que l'opération est annulée.'");
+                            break;
+                        case ResultatFinalisationAchat:
+                            System.out.println("Magasinier : 'Parfait ! Le fournisseur m'informe que l'achat s'est bien effectué.'");
+                            break;
+                    }
                 }
-
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }
@@ -89,7 +90,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
     private Message traitementResultatInitierAchat(ResultatInitiationAchat ria){
             NegocierPrix nego = new NegocierPrix();
             nego.session = ria.session;
-            nego.prixDemande = (float) (ria.prixFixe-(ria.prixFixe*0.2));
+            nego.prixDemande = (float) (ria.prixFixe-(ria.prixFixe*0.1));
             nego.quantiteDemande = ria.quantiteDisponible;
             return nego;
 
@@ -111,7 +112,7 @@ public class AgentMagasinierBehaviour extends Behaviour {
         else{
             NegocierPrix renegociation = new NegocierPrix();
             renegociation.session = ria.session;
-            renegociation.prixDemande = (float) (ria.prixNegocie-(ria.prixNegocie*0.2));
+            renegociation.prixDemande = (float) (ria.prixNegocie-(ria.prixNegocie*0.1));
             renegociation.quantiteDemande = ria.quantiteDisponible;
             return renegociation;
         }
